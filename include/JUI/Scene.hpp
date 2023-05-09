@@ -5,6 +5,8 @@
 namespace JUI
 {
     class Scene : public Widget {
-
+    public:
+    protected:
+    private:
     };
 }

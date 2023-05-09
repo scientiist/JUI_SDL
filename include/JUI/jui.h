@@ -1,15 +1,44 @@
-// Josh's UI Toolkit
+/////////////////////////////////////////////////////
+// JUI - Josh's UI Toolkit
 // Ported to C++ / SDL
 // Copyright 2023 Conarium Software LLC
-#include <vector>
-#include <memory>
-
-#include <Vector2.hpp>
+// @auth Joshua O'Leary
 
 #pragma once
 
+
+#include <JUI/common.hpp>
+#include <JUI/Color.hpp>
+#include <JUI/Vector2.hpp>
+#include <JUI/Widget.hpp>
+#include <JUI/Rect.hpp>
+#include <JUI/Text.hpp>
+#include <JUI/Scene.hpp>
+#include <JUI/Texture.hpp>
+#include <JUI/Slider.hpp>
+#include <JUI/TextExit.hpp>
+#include <JUI/VerticalLayoutContainer.hpp>
+#include <JUI/HorizontalLayoutContainer.hpp>
+
+
+#include <vector>
+#include <memory>
+
+
+
 namespace JUI
 {
+
+    static void JUI_Init()
+    {
+        
+    }
+
+    static void JUI_Quit()
+    {
+        SDL_Quit();
+        exit(0);
+    }
 
     class ScreenCoordinates
     {
