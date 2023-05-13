@@ -15,3 +15,10 @@ protected:
 private:
 };
 
+
+
+
+void JUIDemoGame::Initialize() {
+    Gui = JUI::Scene();
+    
+}
