@@ -3,9 +3,6 @@ project(JUI)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-pedantic -Wall -Wextra")
 
-
-
-
 # Add SDL2 CMake modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
 
