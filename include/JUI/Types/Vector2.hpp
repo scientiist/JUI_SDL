@@ -11,7 +11,6 @@
 float lerp(float a, float b, float t) { return a + t * (b - a); }
 
 namespace JUI {
-
     class Vector2 {
     public:
 #pragma region Static Members
@@ -55,26 +54,31 @@ namespace JUI {
 
         friend std::ostream &operator<<(std::ostream &os, const Vector2 &vector);
 
-        bool operator==(const Vector2 &rhs) const { return (X == rhs.X && Y == rhs.Y); }
+        bool operator==(const Vector2 &rhs) const;
 
-        bool operator!=(const Vector2 &rhs) const { return (X != rhs.X && Y != rhs.Y); }
+        bool operator!=(const Vector2 &rhs) const;
 
         Vector2 &operator=(const Vector2 &) = default;
 
-        Vector2 operator+(const Vector2 &rhs) const { return {X + rhs.X, Y + rhs.Y}; };
+        Vector2 operator+(const Vector2 &rhs) const;
 
-        Vector2 operator-(const Vector2 &rhs) const { return {X - rhs.X, Y - rhs.Y}; };
+        Vector2 operator-(const Vector2 &rhs) const;
 
-        Vector2 operator*(const Vector2 &rhs) const { return {X * rhs.X, Y * rhs.Y}; };
+        Vector2 operator*(const Vector2 &rhs) const;
 
-        Vector2 operator/(const Vector2 &rhs) const { return {X / rhs.X, Y / rhs.Y}; };
+        Vector2 operator/(const Vector2 &rhs) const;
 
-        Vector2 operator*(float rhs) const { return {X * rhs, Y * rhs}; };
+        Vector2 operator*(float rhs) const;
 
-        Vector2 operator/(float rhs) const { return {X / rhs, Y / rhs}; };
+        Vector2 operator/(float rhs) const;
+
 #pragma endregion
 
 #pragma region Member Methods
+
+        bool Equals(const Vector2 &rhs, float marginOfError = 0.0001f) {
+
+        }
 
         float GetX() const { return this->X; }
 

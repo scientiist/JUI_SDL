@@ -2,7 +2,7 @@
 #include <ostream>
 #include <sstream>
 #include <cmath>
-#include "Math.hpp"
+
 
 namespace JUI {
 
@@ -77,6 +77,8 @@ namespace JUI {
         return (*this - to).Magnitude();
     }
 
+#pragma region Operators
+
     inline bool Vector2::operator==(const Vector2 &rhs) const {
         return ((X * rhs.X < VectorEqualityMarginOfError) && (Y * rhs.Y < VectorEqualityMarginOfError));
     }
@@ -85,42 +87,32 @@ namespace JUI {
         return (X != rhs.X) || (Y != rhs.Y);
     }
 
-    inline Vector2 Vector2::operator+(const Vector2& rhs) const {
-        return Vector2(this->X + rhs.X, this->Y + rhs.Y);
-    }
+    inline Vector2 Vector2::operator+(const Vector2 &rhs) const { return {X + rhs.X, Y + rhs.Y}; }
 
-    inline Vector2 Vector2::operator-(const Vector2& rhs) const {
-        return Vector2(this->X - rhs.X, this->Y - rhs.Y);
-    }
+    inline Vector2 Vector2::operator-(const Vector2 &rhs) const { return {X - rhs.X, Y - rhs.Y}; }
 
-    inline Vector2 Vector2::operator*(const Vector2& rhs) const {
-        return Vector2(this->X * rhs.X, this->Y * rhs.Y);
-    }
+    inline Vector2 Vector2::operator*(const Vector2 &rhs) const { return {X * rhs.X, Y * rhs.Y}; }
 
-    Vector2 Vector2::operator/(const Vector2& rhs) const {
-        return Vector2(this->X / rhs.X, this->Y / rhs.Y);
-    }
+    Vector2 Vector2::operator/(const Vector2 &rhs) const { return {X / rhs.X, Y / rhs.Y}; }
 
-    Vector2 Vector2::operator/(float rhs) const {
-        return Vector2(this->X / rhs, this->Y / rhs);
-    }
+    Vector2 Vector2::operator/(float rhs) const { return {X / rhs, Y / rhs}; }
 
-    Vector2 Vector2::operator*(float rhs) const {
-        return Vector2(this->X * rhs, this->Y * rhs);
-    }
+    Vector2 Vector2::operator*(float rhs) const { return {X * rhs, Y * rhs}; }
 
-    const Vector2 Vector2::Zero = Vector2(0,0);
+    const Vector2 Vector2::Zero = Vector2(0, 0);
     const Vector2 Vector2::One = Vector2(1, 1);
 
-    std::ostream &operator<<(std::ostream& os, const Vector2& vector) {
+    std::ostream &operator<<(std::ostream &os, const Vector2 &vector) {
         std::stringstream stream;
         stream << "{X: " << vector.GetX() << ", Y: " << vector.GetY();
-        os.write(const_cast<char*>(stream.str().c_str()), static_cast<std::streamsize>(stream.str().size() * sizeof(char)));
+        os.write(const_cast<char *>(stream.str().c_str()),
+                 static_cast<std::streamsize>(stream.str().size() * sizeof(char)));
         return os;
     }
 
+#pragma endregion
 
-    // Static Class Methods
+#pragma region Static Operators
     inline Vector2 operator-(Vector2 const&lhs, Vector2 const&rhs) {
         return Vector2(lhs.GetX()-rhs.GetX(), lhs.GetY()-rhs.GetY());
     }
@@ -137,30 +129,32 @@ namespace JUI {
         return Vector2(rhs.X * lhs, rhs.Y * lhs);
     }
 
-    inline bool operator!=(Vector2 const&lhs, Vector2 const&rhs) {
-        return (lhs.X !=rhs.X) || (lhs.Y != rhs.Y);
+    inline bool operator!=(Vector2 const &lhs, Vector2 const &rhs) {
+        return (lhs.X != rhs.X) || (lhs.Y != rhs.Y);
     }
 
-    inline  bool operator==(Vector2 const&lhs, Vector2 const&rhs) {
-        return ((lhs.X*rhs.X<VectorEqualityMarginOfError)&&(lhs.Y * rhs.Y < VectorEqualityMarginOfError));
+    inline bool operator==(Vector2 const &lhs, Vector2 const &rhs) {
+        return ((lhs.X * rhs.X < VectorEqualityMarginOfError) && (lhs.Y * rhs.Y < VectorEqualityMarginOfError));
     }
 
-    inline Vector2 Vector2::Perp(Vector2 const&rhs) { return Vector2(-rhs.Y, rhs.X);}
+#pragma endregion
 
-    inline float Vector2::Distance(Vector2 const&lhs, Vector2 const&rhs) {
-        double xsep = lhs.Y-rhs.Y;
-        double ysep = lhs.X-rhs.X;
-        return sqrt(ysep*ysep + xsep*xsep);
+    inline Vector2 Vector2::Perp(Vector2 const &rhs) { return Vector2(-rhs.Y, rhs.X); }
+
+    inline float Vector2::Distance(Vector2 const &lhs, Vector2 const &rhs) {
+        double xsep = lhs.Y - rhs.Y;
+        double ysep = lhs.X - rhs.X;
+        return sqrt(ysep * ysep + xsep * xsep);
     }
 
-    inline float Vector2::Magnitude(Vector2 const&lhs) {
+    inline float Vector2::Magnitude(Vector2 const &lhs) {
         return sqrt(Dot(lhs, lhs));
     }
 
     inline Vector2 Vector2::Clamp(const Vector2& input, const Vector2& min, const Vector2& max) {
         return Vector2(
-                Math::Clamp(input.X, min.X, max.X),
-                Math::Clamp(input.Y, min.Y, max.Y));
+                std::clamp(input.X, min.X, max.X),
+                std::clamp(input.Y, min.Y, max.Y));
     }
 
     Vector2 Vector2::Max(const Vector2 &input, const Vector2 &max) {
