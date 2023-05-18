@@ -2,121 +2,162 @@
 
 #include <memory>
 #include <vector>
-#include <Vector2.hpp>
+#include <JUI/Types/Vector2.hpp>
+#include <JUI/Types/UDim2.hpp>
 
-namespace JUI
-{
+namespace JUI {
     class Widget : public std::enable_shared_from_this<Widget> {
     public:
 
         Widget();
+
         virtual ~Widget();
 
-        virtual void Draw() {}
-        virtual void Update(float delta) {}
+        virtual void Draw();
 
+        virtual void Update(float delta);
 
-        void setParent(Widget* parent);
-        Widget* getParent();
+        void DrawChildWidgets();
+
+        void UpdateChildWidgets(float delta);
+
+        bool IsAncestorOf(Widget *w);
+
+        bool IsDescendantOf(Widget *w);
+
+        std::vector<Widget *> GetDescendants();
+
+        std::vector<Widget *> GetAncestors();
+
+        std::vector<std::shared_ptr<Widget>> GetChildren();
+
+        void SetParent(Widget *parent);
+
+        Widget *GetParent();
+
+        UDim2 GetPosition();
+
+        void SetPosition(UDim2 const &);
+
+        UDim2 GetSize();
+
+        void SetSize(UDim2 const &);
+
+        Vector2 GetAbsoluteSize();
+
+        Vector2 GetAbsolutePosition();
+
+        void _SetAbsoluteSize(Vector2 const &);
+
+        void _SetAbsolutePosition(Vector2 const &);
+
     protected:
 
     private:
-        Widget* parent = nullptr;
+        UDim2 position;
+        UDim2 size;
+        Vector2 absolutePosition;
+        Vector2 absoluteSize;
+        Widget *parent = nullptr;
         std::vector<std::shared_ptr<Widget>> children;
         //std::string name = "Instance";
-        // Copy Parent-Child hierarchy from Redwood...
-
-
-
     };
 
+    void Widget::Update(float delta) {
 
-    void Widget::setParent(Widget *newParent) {
+    }
+
+
+    void Widget::UpdateChildWidgets(float delta) {
+        for (const auto &child: GetChildren()) {
+            Vector2 child_size_scale = child->GetSize().GetScale();
+            Vector2 child_size_pixels = child->GetSize().GetScale();
+            Vector2 child_pos_scale = child->GetPosition().GetScale();
+            Vector2 child_pos_pixels = child->GetPosition().GetPixels();
+            Vector2 parent_abs_size = this->GetAbsoluteSize();
+            Vector2 parent_abs_pos = this->GetAbsolutePosition();
+            Vector2 child_final_size = (child_size_scale * parent_abs_size) + child_size_pixels;
+            Vector2 child_final_pos = parent_abs_pos + (child_pos_scale * parent_abs_size) + child_pos_pixels;
+
+            // TODO: Take into account constraints on the widget
+            child->_SetAbsolutePosition(child_final_pos);
+            child->_SetAbsoluteSize(child_final_size);
+        }
+    }
+
+    void Widget::SetParent(Widget *parent) {
         // hold a reference to this so it doesn't get collected as we're working with it
         std::shared_ptr<Widget> shared = shared_from_this();
 
-        Widget* oldParent = this->parent;
-        if (parent == newParent)
+        Widget *oldParent = this->parent;
+        if (parent == oldParent)
             return;
 
         // Don't allow for an instance to be parented to itself
-        if (this == newParent)
-        {
+        if (this == parent) {
             throw std::runtime_error("Cannot parent a widget to itself");
         }
 
-        if (this->isAncestorOf(newParent))
-        {
+        if (this->IsAncestorOf(parent)) {
             throw std::runtime_error("Cannot create circular reference");
         }
 
-        for (Widget* ancestor : this->getAncestors())
-        {
-            if (oldParent && !ancestor->isAncestorOf(newParent) && newParent != ancestor)
-            {
+        for (Widget *ancestor: this->GetAncestors()) {
+            if (oldParent && !ancestor->IsAncestorOf(parent) && parent != ancestor) {
                 // TODO: ancestor->onDescendantRemoved(this, oldParent, newParent);
-                for (Widget* descendant: this->getDescendants())
-                {
-                    ancestor->OnDescendantRemoving(descendant, oldParent, newParent);
+                for (Widget *descendant: this->GetDescendants()) {
+                    //ancestor->OnDescendantRemoving(descendant, oldParent, newParent);
                 }
             }
         }
 
         // Remove ourselves from our parent (if we have one)
-        if (this->parent) 
-        {
-            this->parent->onChildRemoving(this);
+        if (this->parent) {
+            //this->parent->onChildRemoving(this);
             parent->children.erase(std::remove(parent->children.begin(), parent->children.end(), this->shared_from_this()), parent->children.end());
         }
 
         // Update our old parent to the new one
-        this->parent = newParent;
+        this->parent = parent;
 
         // If our parent is set to nullptr, we can't update it's vector of children
-        if (!newParent)
-        {
+        if (!parent) {
             return;
         }
 
         // Add ourselves to our new parent's list of children
-        newParent->children.emplace_back(this->shared_from_this());
-        newParent->onChildAdded(this);
+        parent->children.emplace_back(this->shared_from_this());
+        //newParent->onChildAdded(this);
 
-        for (Widget* ancestor : this->getAncestors()) {
-            if (!oldParent || !oldParent->isDescendantOf(newParent) && oldParent != ancestor)
-            {
+        for (Widget *ancestor: this->GetAncestors()) {
+            if (!oldParent || !oldParent->IsDescendantOf(parent) && oldParent != ancestor) {
                 // Don't fire event unless an instance is actually a new descendant
-                ancestor->OnDescendantAdded(this, oldParent, newParent);
-                for (Widget* descendant : this->getDescendants())
-                {
-                    ancestor->OnDescendantAdded(descendant, oldParent, newParent);
+                //ancestor->OnDescendantAdded(this, oldParent, newParent);
+                for (Widget *descendant: this->GetDescendants()) {
+                    //ancestor->OnDescendantAdded(descendant, oldParent, newParent);
                 }
             }
         }
     }
 
-    bool Widget:isDescendantOf(Widget* ancestor)
-    {
+    bool Widget::IsDescendantOf(Widget *ancestor) {
         if (ancestor == nullptr)
             return false;
-        Widget* instance = this;
-        while(instane->getParent())
-        {
-            instance = instance->getParent();
+        Widget *instance = this;
+        while (instance->GetParent()) {
+            instance = instance->GetParent();
             if (instance == ancestor)
                 return true;
         }
         return false;
     }
 
-    bool Widget::isAncestorOf(Widget* descendant)
-    {
+    bool Widget::IsAncestorOf(Widget *descendant) {
         if (descendant == nullptr)
             return false;
-        Widget* instance = descendant;
-        while (instance->getParent())
-        {
-            instance = instance->getParent();
+        Widget *instance = descendant;
+        while (instance->GetParent()) {
+            instance = instance->GetParent();
             if (instance == this)
                 return true;
         }
@@ -124,35 +165,28 @@ namespace JUI
     }
 
 
-    std::vector<std::shared_ptr<Widget>> Widget::getChildren()
-    {
+    std::vector<std::shared_ptr<Widget>> Widget::GetChildren() {
         return this->children;
     }
 
-    std::vector<Widget*> Widget::getDescendants()
-    {
-        std::vector<Widget*> descendants;
-        for (std::shared_ptr<Widget> child : this->children)
-        {
+    std::vector<Widget *> Widget::GetDescendants() {
+        std::vector<Widget *> descendants;
+        for (std::shared_ptr<Widget> child: this->children) {
             descendants.push_back(child.get());
-            std::vector<Widget*> recursiveDescendants = child->getDescendants();
+            std::vector<Widget *> recursiveDescendants = child->GetDescendants();
             descendants.insert(descendants.end(), recursiveDescendants.begin(), recursiveDescendants.end());
         }
         return descendants;
     }
 
-    std::vector<Widget*> Widget::getAncestors()
-    {
-        std::vector<Widget*> ancestors;
-        for (Widget* ancestor = this->parent; ancestor; ancestor = ancester->parent)
-        {
+    std::vector<Widget *> Widget::GetAncestors() {
+        std::vector<Widget *> ancestors;
+        for (Widget *ancestor = this->parent; ancestor; ancestor = ancestor->parent) {
             ancestors.push_back(ancestor);
         }
         return ancestors;
     }
 
-    void Widget::
-
-    Widget* Widget::getParent() { }
+    Widget *Widget::GetParent() {}
 
 }
