@@ -1,14 +1,19 @@
 #pragma once
 
-#include <Vector2.hpp>
+#include <JUI/Types/Vector2.hpp>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
+using namespace JUI;
 
 class SDLGame {
 public:
     virtual void Initialize();
+
     virtual void Cleanup();
+
     virtual void Update(float delta);
+
     virtual void Draw();
 
     // Starts Render & Gametic Threads

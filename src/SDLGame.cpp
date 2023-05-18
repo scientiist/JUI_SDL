@@ -1,5 +1,5 @@
 #include <SDLGame.hpp>
-#include <Vector2.hpp>
+#include "JUI/Types/Vector2.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <chrono>
