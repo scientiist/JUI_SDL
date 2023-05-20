@@ -2,7 +2,11 @@
 
 void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
-    Gui = JUI::Scene();
+    Gui = new JUI::Scene();
+
+    JUI::Rect *rect = new JUI::Rect();
+    rect->SetParent(Gui);
+    rect->SetBackgroundColor({0, 0, 0});
 }
 
 
