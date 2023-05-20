@@ -19,7 +19,9 @@ void SDLGame::SetWindowSize(Vector2 const&v) {
     SDL_SetWindowSize(window, v.GetX(), v.GetY());
 }
 
-void SDLGame::Draw() { }
+void SDLGame::Draw() {
+
+}
 
 void SDLGame::Render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);

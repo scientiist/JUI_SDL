@@ -8,7 +8,7 @@
 
 // TODO: Consider generalizing the type with templates
 
-float lerp(float a, float b, float t) { return a + t * (b - a); }
+//float lerp(float a, float b, float t) { return a + t * (b - a); }
 
 namespace JUI {
     class Vector2 {

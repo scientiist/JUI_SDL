@@ -1,24 +1,40 @@
 #pragma once
 
-#include "Vector2.hpp"
-// Universal Dimensions 2D
+#include <JUI/Types/Vector2.hpp>
+// Universal Dimensions 2D - Immuatable Data Type
 // Contains a scale vector, and a pixel offsets vector
 // TODO: Think of a better name than UDim2
 namespace JUI {
 
     class UDim2 {
     public:
-        UDim2(int px, int py, float sx, float sy) {}
+#pragma region Constructors
 
-        UDim2(Vector2 pixels, Vector2 scale) {}
+        UDim2(int px, int py, float sx, float sy) :
+                pixelsX(px), pixelsY(py), scaleX(sx), scaleY(sy) {}
 
-        static UDim2 FromPixels(int x, int y);
+        UDim2(Vector2 pixels, Vector2 scale) {
+            pixelsX = pixels.X;
+            pixelsY = pixels.Y;
+            scaleX = scale.X;
+            scaleY = scale.Y;
+        }
 
-        static UDim2 FromScale(int x, int y);
+        static UDim2 FromPixels(int x, int y) {
+            return {{x, y},
+                    {0, 0}};
+        }
 
-        Vector2 GetScale();
+        static UDim2 FromScale(int x, int y) {
+            return {{0, 0},
+                    {x, y}};
+        }
 
-        Vector2 GetPixels();
+#pragma endregions
+
+        Vector2 GetScale() { return {scaleX, scaleY}; }
+
+        Vector2 GetPixels() { return {pixelsX, pixelsY}; }
 
     protected:
     private:

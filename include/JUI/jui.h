@@ -1,14 +1,17 @@
-/////////////////////////////////////////////////////
-// JUI - Josh's UI Toolkit
-// Ported to C++ / SDL
-// Copyright 2023 Conarium Software LLC
-// @auth Joshua O'Leary
-
+/* @file       jui.h
+ * @desc       Josh's User Interface Toolkit (C++/SDL2 Edition)
+ * @auth       Josh O'Leary
+ * @revision   1
+ * @edited     2023-05-20
+ * @copyright  (C) 2023 Conarium Software
+ * @license    GNU Affero GPL-3
+ */
 #pragma once
 
 
 #include <JUI/common.hpp>
 #include <JUI/Event.hpp>
+//#include <JUI/Font.hpp>
 #include <JUI/Types/Vector2.hpp>
 #include <JUI/Widget.hpp>
 #include <JUI/Widgets/Rect.hpp>
@@ -24,11 +27,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 
-using namespace JUI;
-
 namespace JUI {
 
+
     static SDL_Renderer *renderer;
+
+    static SDL_Renderer *getRenderer() { return renderer; }
 
     static void Init() {}
 

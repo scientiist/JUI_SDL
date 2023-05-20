@@ -18,18 +18,3 @@ protected:
 private:
 };
 
-void JUIDemoGame::Initialize() {
-    Gui = new JUI::Scene();
-
-    JUI::Rect *rect = new JUI::Rect();
-    rect->SetParent(Gui);
-    rect->SetColor();
-}
-
-void JUIDemoGame::Draw() {
-
-}
-
-void JUIDemoGame::Update(float delta) {
-
-}

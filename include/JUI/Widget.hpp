@@ -4,14 +4,29 @@
 #include <vector>
 #include <JUI/Types/Vector2.hpp>
 #include <JUI/Types/UDim2.hpp>
+#include <JUI/Event.hpp>
 
 namespace JUI {
+
     class Widget : public std::enable_shared_from_this<Widget> {
     public:
 
         Widget();
 
         virtual ~Widget();
+
+        Event<Widget *> DescendantAdded;
+        Event<Widget *> DescendantRemoved;
+        Event<Widget *, Widget *> AncestryChanged;
+        Event<Widget *> ChildAdded;
+        Event<Widget *> ChildRemoved;
+        Event<Widget *> Destroying;
+
+        Widget *NextSelection;
+        Widget *PreviousSelection;
+
+        bool Selected;
+
 
         virtual void Draw();
 
@@ -43,13 +58,38 @@ namespace JUI {
 
         void SetSize(UDim2 const &);
 
-        Vector2 GetAbsoluteSize();
+        Vector2 GetAbsoluteSize() {
+            Vector2 child_size_scale = this->GetSize().GetScale();
+            Vector2 child_size_pixels = this->GetSize().GetPixels();
+            Vector2 child_pos_scale = this->GetPosition().GetScale();
+            Vector2 child_pos_pixels = this->GetPosition().GetPixels();
+            Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
+            Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
+            Vector2 absolute_size = (child_size_scale * parent_abs_size) + child_size_pixels;
+            // TODO: Take into account constraints on the widget
+            return absolute_size;
+        }
 
-        Vector2 GetAbsolutePosition();
+        Vector2 GetAbsolutePosition() {
+            Vector2 child_size_scale = this->GetSize().GetScale();
+            Vector2 child_size_pixels = this->GetSize().GetPixels();
+            Vector2 child_pos_scale = this->GetPosition().GetScale();
+            Vector2 child_pos_pixels = this->GetPosition().GetPixels();
+            Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
+            Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
+            Vector2 absolute_position = parent_abs_pos + (child_pos_scale * parent_abs_size) + child_pos_pixels;
+            return absolute_position;
+        }
 
-        void _SetAbsoluteSize(Vector2 const &);
+        float GetRotation() { return rotation; }
 
-        void _SetAbsolutePosition(Vector2 const &);
+        void SetRotation(float rot) { rotation = rot; }
+
+        float GetAbsoluteRotation() { return absolute_rotation; }
+
+        //void _SetAbsoluteSize(Vector2 const &);
+
+        //void _SetAbsolutePosition(Vector2 const &);
 
     protected:
 
@@ -60,6 +100,9 @@ namespace JUI {
         Vector2 absoluteSize;
         Widget *parent = nullptr;
         std::vector<std::shared_ptr<Widget>> children;
+        float rotation = 0;
+        float absolute_rotation;
+
         //std::string name = "Instance";
     };
 
@@ -70,43 +113,27 @@ namespace JUI {
 
     void Widget::UpdateChildWidgets(float delta) {
         for (const auto &child: GetChildren()) {
-            Vector2 child_size_scale = child->GetSize().GetScale();
-            Vector2 child_size_pixels = child->GetSize().GetScale();
-            Vector2 child_pos_scale = child->GetPosition().GetScale();
-            Vector2 child_pos_pixels = child->GetPosition().GetPixels();
-            Vector2 parent_abs_size = this->GetAbsoluteSize();
-            Vector2 parent_abs_pos = this->GetAbsolutePosition();
-            Vector2 child_final_size = (child_size_scale * parent_abs_size) + child_size_pixels;
-            Vector2 child_final_pos = parent_abs_pos + (child_pos_scale * parent_abs_size) + child_pos_pixels;
 
-            // TODO: Take into account constraints on the widget
-            child->_SetAbsolutePosition(child_final_pos);
-            child->_SetAbsoluteSize(child_final_size);
         }
     }
 
     void Widget::SetParent(Widget *parent) {
         // hold a reference to this so it doesn't get collected as we're working with it
         std::shared_ptr<Widget> shared = shared_from_this();
-
         Widget *oldParent = this->parent;
         if (parent == oldParent)
             return;
-
         // Don't allow for an instance to be parented to itself
-        if (this == parent) {
+        if (this == parent)
             throw std::runtime_error("Cannot parent a widget to itself");
-        }
-
-        if (this->IsAncestorOf(parent)) {
+        if (this->IsAncestorOf(parent))
             throw std::runtime_error("Cannot create circular reference");
-        }
 
         for (Widget *ancestor: this->GetAncestors()) {
             if (oldParent && !ancestor->IsAncestorOf(parent) && parent != ancestor) {
-                // TODO: ancestor->onDescendantRemoved(this, oldParent, newParent);
+                ancestor->DescendantRemoved(this);
                 for (Widget *descendant: this->GetDescendants()) {
-                    //ancestor->OnDescendantRemoving(descendant, oldParent, newParent);
+                    ancestor->DescendantRemoved(this);
                 }
             }
         }
