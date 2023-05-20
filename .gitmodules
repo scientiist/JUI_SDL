@@ -1,0 +1,3 @@
+[submodule "lib/SDL_FontCache"]
+	path = lib/SDL_FontCache
+	url = https://github.com/scientiist/SDL_FontCache

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <JUI/Types/Vector2.hpp>
+#include <JUI/Event.hpp>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -8,6 +9,10 @@ using namespace JUI;
 
 class SDLGame {
 public:
+    JUI::Event<float> RenderTick;
+    JUI::Event<float> LogicTick;
+
+
     virtual void Initialize();
 
     virtual void Cleanup();
@@ -18,7 +23,9 @@ public:
 
     // Starts Render & Gametic Threads
     void Run();
+
     void Gameloop();
+
     void RunFrame();
     void Render();
 
