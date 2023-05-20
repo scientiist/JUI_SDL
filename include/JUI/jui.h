@@ -8,40 +8,56 @@
 
 
 #include <JUI/common.hpp>
-#include <JUI/Color.hpp>
-#include <JUI/Vector2.hpp>
+#include <JUI/Event.hpp>
+#include <JUI/Types/Vector2.hpp>
 #include <JUI/Widget.hpp>
-#include <JUI/Rect.hpp>
-#include <JUI/Text.hpp>
-#include <JUI/Scene.hpp>
-#include <JUI/Texture.hpp>
-#include <JUI/Slider.hpp>
-#include <JUI/TextExit.hpp>
-#include <JUI/VerticalLayoutContainer.hpp>
-#include <JUI/HorizontalLayoutContainer.hpp>
+#include <JUI/Widgets/Rect.hpp>
+#include <JUI/Widgets/Text.hpp>
+#include <JUI/Widgets/Scene.hpp>
+#include <JUI/Widgets/Texture.hpp>
+#include <JUI/Widgets/Slider.hpp>
+#include <JUI/Widgets/TextEdit.hpp>
+#include <JUI/Widgets/VerticalLayoutContainer.hpp>
+#include <JUI/Widgets/HorizontalLayoutContainer.hpp>
 #include <vector>
 #include <memory>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_render.h>
 
-namespace JUI
-{
-    static SDL_Renderer* renderer;
-    static void Init() { }
+using namespace JUI;
+
+namespace JUI {
+
+    static SDL_Renderer *renderer;
+
+    static void Init() {}
 
     // Primitive Rendering Methods
     static void DrawRect(int x, int y, int w, int h) {
-        SDL_Rect rect {x, y, w, h};
-        SDL_RenderDrawRect(renderer, rect);
+        SDL_Rect rect{x, y, w, h};
+        SDL_RenderDrawRect(renderer, &rect);
     }
-    static void DrawRect(const v2d& position, const v2d& size)
-    {
 
+    static void DrawRect(const Vector2 &position, const Vector2 &size) {
+        SDL_Rect rect{
+                static_cast<int>(position.X),
+                static_cast<int>(position.Y),
+                static_cast<int>(size.X),
+                static_cast<int>(size.Y)};
+        SDL_RenderDrawRect(renderer, &rect);
     }
+
     static void FillRect(int x, int y, int w, int h) {
-
+        SDL_Rect rect{x, y, w, h};
+        SDL_RenderFillRect(renderer, &rect);
     }
+
     static void DrawPolygon() {}
+
     static void FillPolygon() {}
+
     static void DrawLine() {}
+
     static void DrawLines() {}
     static void DrawPoint() {}
     static void DrawPoints() {}
@@ -56,27 +72,5 @@ namespace JUI
         SDL_Quit();
         exit(0);
     }
-
-    class ScreenCoordinates
-    {
-        int PixelsX;
-        int PixelsY;
-        float ScaleX;
-        float ScaleY;
-    };
-
-    // TODO: Get sum rectangles rendering in SDL2
-    class Layout  { };
-    class VerticalLayoutContainer : Layout { };
-    class HorizontalLayoutContainer : Layout { };
-    class GridLayoutContainer : Layout { };
-    class TextLabel : Widget { };
-    class Slider : Widget {};
-    class Checkbox : Widget {};
-    class LineEdit : Widget { };
-    class NineSlice : Widget { };
-    class ContextButton : Widget { };
-    class ScrollRect : Widget { };
-
 
 }

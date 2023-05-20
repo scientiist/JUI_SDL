@@ -1,7 +1,6 @@
 #pragma once
 
 #include "JUI/Widget.hpp"
-#include "JUI/Types/Color.hpp"
 
 namespace JUI {
     // Text Widget
@@ -9,8 +8,8 @@ namespace JUI {
     // TODO: Rich Text Support
     class Text : Widget {
         std::string Text;
-        Color TextColor;
-        Color TextOutlineColor;
+        SDL_Color TextColor;
+        SDL_Color TextOutlineColor;
         float TextOutline;
         bool RichTextEnabled;
 
