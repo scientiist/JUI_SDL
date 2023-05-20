@@ -1,7 +1,7 @@
 #pragma once
 
 #include <JUI/Widget.hpp>
-#include "JUI/Types/Color.hpp"
+#include <SDL2/SDL_pixels.h>
 #include "JUI/Types/UDim2.hpp"
 
 namespace JUI {
@@ -12,23 +12,40 @@ namespace JUI {
 
         void Update(float delta) override;
 
-        void SetBackgroundColor(JUI::Color c);
 
-        void SetBorderColor(JUI::Color c);
+        UDim2 GetSize() { return size; }
 
-        void SetBorderWidth(float);
+        void SetSize(UDim2 s) { size = s; }
 
-        void SetClipsDescendants(bool);
+        UDim2 GetPosition() { return position; }
 
-        bool GetClipsDescendants();
+        void SetPosition(UDim2 pos) { position = pos; }
 
-        void SetTransparency(float alpha);
+        SDL_Color GetBackgroundColor() { return bg_color; }
 
-        float GetTransparency();
+        void SetBackgroundColor(SDL_Color c) { bg_color = c; }
 
-        float GetRotation();
+        SDL_Color GetBorderColor() { return border_color; }
 
-        float SetRotation();
+        void SetBorderColor(SDL_Color c) { border_color = c; }
+
+        float GetBorderWidth() { return border_width; }
+
+        void SetBorderWidth(float pixels) { border_width = pixels; }
+
+        bool GetClipsDescendants() { return clips_descendants; }
+
+        void SetClipsDescendants(bool ye) { clips_descendants = ye; }
+
+        // Are these necessary? SDL_Color contains an alpha channel
+        float GetTransparency() { return this->transparency; }
+
+        void SetTransparency(float alpha) { transparency = alpha; }
+
+
+        float GetRotation() { return rotation; }
+
+        void SetRotation(float rot) { rotation = rot; }
 
         bool IsVisible();
 
@@ -36,11 +53,25 @@ namespace JUI {
 
     protected:
     private:
+        float border_width = 1.0f;
+        SDL_Color bg_color;
+        SDL_Color border_color;
         float transparency;
+        bool clips_descendants;
+        UDim2 position;
+        UDim2 size;
+        Vector2 absolute_size;
+        Vector2 absolute_position;
+        float rotation;
+        float absolute_rotation;
     };
 
 
     void Rect::Draw() {
+
+    }
+
+    void Rect::Update(float delta) {
 
     }
 }
