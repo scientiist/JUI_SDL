@@ -1,4 +1,4 @@
-#include <SDLGame.hpp>
+#include "TestBench/SDLGame.hpp"
 #include "JUI/Types/Vector2.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
