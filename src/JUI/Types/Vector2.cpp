@@ -87,11 +87,11 @@ namespace JUI {
         return (X != rhs.X) || (Y != rhs.Y);
     }
 
-    inline Vector2 Vector2::operator+(const Vector2 &rhs) const { return {X + rhs.X, Y + rhs.Y}; }
+     Vector2 Vector2::operator+(const Vector2 &rhs) const { return {X + rhs.X, Y + rhs.Y}; }
 
-    inline Vector2 Vector2::operator-(const Vector2 &rhs) const { return {X - rhs.X, Y - rhs.Y}; }
+     Vector2 Vector2::operator-(const Vector2 &rhs) const { return {X - rhs.X, Y - rhs.Y}; }
 
-    inline Vector2 Vector2::operator*(const Vector2 &rhs) const { return {X * rhs.X, Y * rhs.Y}; }
+     Vector2 Vector2::operator*(const Vector2 &rhs) const { return {X * rhs.X, Y * rhs.Y}; }
 
     Vector2 Vector2::operator/(const Vector2 &rhs) const { return {X / rhs.X, Y / rhs.Y}; }
 
