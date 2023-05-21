@@ -35,7 +35,7 @@ namespace JUI
 
         Font(SDL_Renderer *target, std::string font) {
             fc_font = FC_CreateFont();
-            FC_LoadFont(fc_font, target, font, 12, {0, 0, 0, 255});
+            FC_LoadFont(fc_font, target, font.c_str(), 12, {0, 0, 0, 255}, 0);
         }
 
         static bool TTFInitialized;

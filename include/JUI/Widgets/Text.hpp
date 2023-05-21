@@ -6,12 +6,11 @@
 
 namespace JUI {
 
-    enum TextVAlign {
-        V_ALIGN_TOP, V_ALIGN_CENTER, V_ALIGN_BOTTOM
+
+    enum TextAlignmentEnum { // What's the difference between this and typedef enum?
+        TEXT_ALIGNMENT_LEFT, TEXT_ALIGNMENT_CENTER, TEXT_ALIGNMENT_RIGHT
     };
-    enum TextHAlign {
-        H_ALIGN_LEFT, H_ALIGN_CENTER, H_ALIGN_RIGHT
-    };
+
 
     // Text Widget
     // Expands to fill the size of the parent Container
@@ -19,22 +18,25 @@ namespace JUI {
     class Text : Widget {
 
         JUI::Font *Font; // Prolly want a reference?
-        TextVAlign VertAlign;
-        TextHAlign HorizAlign;
+        TextAlignmentEnum TextAlignment = TEXT_ALIGNMENT_LEFT;
         std::string Text;
         SDL_Color TextColor;
         SDL_Color TextOutlineColor;
         float TextOutline;
         bool RichTextEnabled;
 
-        // Refactor Scene to pass SLD_Renderer reference
-        // to children during call to Draw();
 
         void Draw(SDL_Renderer *target) override {
 
             auto abs_pos = this->GetParent()->GetAbsolutePosition();
-            FC_DrawAlign(Font->fc_font, target, abs_pos.X, abs_pos.Y, static_cast<FC_AlignEnum>(HorizAlign),
-                         Text.c_str());
+            FC_DrawAlignC(
+                    Font->fc_font,
+                    target,
+                    abs_pos.X,
+                    abs_pos.Y,
+                    static_cast<FC_AlignEnum>(TextAlignment),
+                    TextColor,
+                    Text.c_str());
 
         }
     };
