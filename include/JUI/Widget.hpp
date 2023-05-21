@@ -5,6 +5,7 @@
 #include <JUI/Types/Vector2.hpp>
 #include <JUI/Types/UDim2.hpp>
 #include <JUI/Event.hpp>
+#include <SDL_render.h>
 
 namespace JUI {
 
@@ -28,7 +29,7 @@ namespace JUI {
         bool Selected;
 
 
-        virtual void Draw();
+        virtual void Draw(SDL_Renderer *target);
 
         virtual void Update(float delta);
 
