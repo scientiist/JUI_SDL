@@ -2,22 +2,23 @@
 
 void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
-    Gui = new JUI::Scene();
+    Gui = new JUI::Scene(window, renderer);
 
     JUI::Rect *rect = new JUI::Rect();
     rect->SetParent(Gui);
-    rect->SetBackgroundColor({0, 0, 0});
+    rect->SetBackgroundColor({255, 0, 0, 0});
+    rect->SetBorderColor({255, 255, 255, 0});
+    rect->SetSize(JUI::UDim2{0,0, 0.5f, 0.5f});
 }
 
 
 void JUIDemoGame::Update(float delta) {
     SDLGame::Update(delta);
+
 }
 
 void JUIDemoGame::Draw() {
     SDLGame::Draw();
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_Rect urAFuckingNi{0,0,40,40};
-    SDL_RenderFillRect(renderer, &urAFuckingNi);
+    Gui->Draw(renderer);
 }
