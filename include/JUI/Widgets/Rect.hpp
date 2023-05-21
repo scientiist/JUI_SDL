@@ -8,7 +8,10 @@ namespace JUI {
     class Rect : public Widget {
     public:
 
-        void Draw() override;
+        Rect();
+        ~Rect() override;
+
+        void Draw(SDL_Renderer* target) override;
 
         void Update(float delta) override;
 
@@ -52,26 +55,14 @@ namespace JUI {
         void SetVisible(bool);
 
     protected:
-    private:
         float border_width = 1.0f;
         SDL_Color bg_color;
         SDL_Color border_color;
         float transparency;
         bool clips_descendants;
-        UDim2 position;
-        UDim2 size;
-        Vector2 absolute_size;
-        Vector2 absolute_position;
-        float rotation;
-        float absolute_rotation;
+    private:
     };
 
 
-    void Rect::Draw() {
 
-    }
-
-    void Rect::Update(float delta) {
-
-    }
 }
