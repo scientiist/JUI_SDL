@@ -5,6 +5,23 @@ This is a work-in-progress GUI toolkit for the SDL2 platform.
 Currently writing it in C++, should be viable for any other SDL
 bindings however...
 
+Installation
+
+To include JUI in your project,
+
+
+Example
+```cpp
+
+
+
+int main(int argc, int** argv)
+{
+
+
+}
+
+```
 
 
 
