@@ -17,9 +17,7 @@ namespace JUI {
         void Draw() { Draw(renderer); }
         void Draw(SDL_Renderer* target) override
         {
-            for (auto child: children) {
-                child->Draw(target);
-            }
+            Widget::Draw(target);
         }
 
         void Update(float delta) override;

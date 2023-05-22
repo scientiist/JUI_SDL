@@ -32,25 +32,24 @@ namespace JUI {
 
         void SetBorderColor(SDL_Color c) { border_color = c; }
 
-        float GetBorderWidth() { return border_width; }
+        float GetBorderWidth() const { return border_width; }
 
         void SetBorderWidth(float pixels) { border_width = pixels; }
 
-        bool GetClipsDescendants() { return clips_descendants; }
+        bool GetClipsDescendants() const { return clips_descendants; }
 
         void SetClipsDescendants(bool ye) { clips_descendants = ye; }
 
         // Are these necessary? SDL_Color contains an alpha channel
-        float GetTransparency() { return this->transparency; }
+        float GetTransparency() const { return this->transparency; }
 
         void SetTransparency(float alpha) { transparency = alpha; }
 
-
-        float GetRotation() { return rotation; }
+        float GetRotation() const { return rotation; }
 
         void SetRotation(float rot) { rotation = rot; }
 
-        bool IsVisible();
+        bool IsVisible() const;
 
         void SetVisible(bool);
 

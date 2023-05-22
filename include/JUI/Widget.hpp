@@ -28,7 +28,10 @@ namespace JUI {
 
         bool Selected;
 
-        virtual void Draw(SDL_Renderer *target) = 0;
+        virtual void Draw(SDL_Renderer *target)
+        {
+            DrawChildWidgets(target);
+        }
 
         virtual void Update(float delta) = 0;
 
