@@ -97,6 +97,9 @@ void SDLGame::Initialize() {
     if (!(IMG_Init(imgFlags) & imgFlags))
         std::cerr << "SDL_Error: " << "Couldn't init SDL_Image." << std::endl;
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cerr << "SDL_Error: " << "Couldn't init SDL_Renderer." << std::endl;
+    }
     SDL_RenderSetLogicalSize(renderer, 1152, 864);
     SDL_GL_SetSwapInterval(0);
     SDL_UpdateWindowSurface(window);
