@@ -10,6 +10,13 @@ namespace JUI {
     public:
 #pragma region Constructors
 
+        UDim2()
+        {
+            pixelsX = 0;
+            pixelsY = 0;
+            scaleX = 0;
+            scaleY = 0;
+        }
         UDim2(int px, int py, float sx, float sy) :
                 pixelsX(px), pixelsY(py), scaleX(sx), scaleY(sy) {}
 
