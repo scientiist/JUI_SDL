@@ -33,14 +33,14 @@ namespace JUI
     public:
         Font() {}
 
-        Font(SDL_Renderer *target, std::string font) {
+        Font(SDL_Renderer *target, std::string font, int ptsize) {
             fc_font = FC_CreateFont();
-            FC_LoadFont(fc_font, target, font.c_str(), 12, {0, 0, 0, 255}, 0);
+            FC_LoadFont(fc_font, target, font.c_str(), ptsize, FC_MakeColor(255,255,255, 0), TTF_STYLE_NORMAL);
         }
 
         static bool TTFInitialized;
 
-        static Font Load(std::string file, int ptsize);
+        //static Font Load(std::string file, int ptsize);
 
         FC_Font *fc_font;
     private:
