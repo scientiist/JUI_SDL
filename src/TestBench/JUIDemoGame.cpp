@@ -27,7 +27,7 @@ void JUIDemoGame::Initialize() {
     JUI::Text *text = new JUI::Text();
     text->SetParent(rect);
     text->SetName("GO HOME AND PRACTICE");
-    text->SetFont(bruhs);
+    text->SetFont(bruh);
     text->SetTextColor({255, 255, 255, 255});
     text->SetText("HELLO WORLD");
 }
