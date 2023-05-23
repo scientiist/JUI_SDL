@@ -22,12 +22,12 @@ void JUIDemoGame::Initialize() {
 
     // TODO: Implement Default Font
 
-    Font nigger = Font(renderer, "fonts/FreeSans.ttf", 18);
+    Font bruh = Font(renderer, "fonts/FreeSans.ttf", 18);
 
     JUI::Text *text = new JUI::Text();
     text->SetParent(rect);
     text->SetName("GO HOME AND PRACTICE");
-    text->SetFont(nigger);
+    text->SetFont(bruhs);
     text->SetTextColor({255, 255, 255, 255});
     text->SetText("HELLO WORLD");
 }
