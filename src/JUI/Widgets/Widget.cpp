@@ -140,7 +140,7 @@ namespace JUI {
             Vector2 child_pos_pixels = this->GetPosition().GetPixels();
             Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
             Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
-            Vector2 absolute_position = parent_abs_pos + (child_pos_scale * parent_abs_size) + child_pos_pixels;
+            Vector2 absolute_position = parent_abs_pos + child_pos_pixels + (parent_abs_size * child_pos_scale);
             return absolute_position;
     }
 
@@ -152,7 +152,7 @@ namespace JUI {
         Vector2 child_pos_pixels = this->GetPosition().GetPixels();
         Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
         Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
-        Vector2 absolute_size = (child_size_scale * parent_abs_size) + child_size_pixels;
+        Vector2 absolute_size = child_size_pixels + (parent_abs_size * child_size_scale);
         // TODO: Take into account constraints on the widget
         return absolute_size;
     }
