@@ -15,7 +15,6 @@ namespace JUI {
         Widget();
         virtual ~Widget();
 
-
         Event<Widget *> DescendantAdded;
         Event<Widget *> DescendantRemoved;
         Event<Widget *, Widget *> AncestryChanged;
@@ -66,8 +65,12 @@ namespace JUI {
 
         float GetAbsoluteRotation() { return absolute_rotation; }
 
+
+        void SetName(std::string n) { name = n;    }
+        std::string GetName() const { return name; }
+
     protected:
-        UDim2 position = {50, 50, 0.0f, 0.0f};
+        UDim2 position = {0, 0, 0.0f, 0.0f};
         UDim2 size = {200, 50, 0.0f, 0.0f};
         Vector2 absolutePosition = {0,0};
         Vector2 absoluteSize = {0,0};
@@ -75,6 +78,7 @@ namespace JUI {
         std::vector<Widget*> children;
         float rotation = 0;
         float absolute_rotation;
+        std::string name;
     private:
 
 
