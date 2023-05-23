@@ -104,7 +104,7 @@ namespace JUI {
 
     std::ostream &operator<<(std::ostream &os, const Vector2 &vector) {
         std::stringstream stream;
-        stream << "{X: " << vector.GetX() << ", Y: " << vector.GetY();
+        stream << "{X: " << vector.GetX() << ", Y: " << vector.GetY() << "}";
         os.write(const_cast<char *>(stream.str().c_str()),
                  static_cast<std::streamsize>(stream.str().size() * sizeof(char)));
         return os;
