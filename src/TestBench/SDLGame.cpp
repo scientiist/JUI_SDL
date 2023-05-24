@@ -30,18 +30,55 @@ void SDLGame::Render() {
     Draw();
     SDL_RenderPresent(renderer);
 }
-void SDLGame::Update(float delta) { }
+void SDLGame::Update(float delta) {
+    if (Paused)
+        return;
+
+
+}
 
 void SDLGame::handleEvents() {
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT)
             requestQuit = true;
 
-        if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
-            Focused = false;
 
-        if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
+
+        if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+        {
+            Focused = false;
+            FocusLost();
+        }
+
+        if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
             Focused = true;
+            FocusGained();
+        }
+
+        if (event.type == SDL_KEYDOWN)
+            KeyPressed(event.key);
+
+        if (event.type == SDL_KEYUP)
+            KeyReleased(event.key);
+
+        if (event.type == SDL_MOUSEBUTTONDOWN)
+            MousePressed(event.button);
+
+        if (event.type == SDL_MOUSEBUTTONUP)
+            MouseReleased(event.button);
+
+        if (event.type == SDL_MOUSEMOTION)
+            MouseMoved(event.motion);
+
+        if (event.type == SDL_MOUSEWHEEL)
+            MouseWheelMoved(event.wheel);
+
+        if (event.type == SDL_CONTROLLERBUTTONDOWN)
+            ButtonPressed(event.cbutton);
+
+        if (event.type == SDL_CONTROLLERBUTTONUP)
+            ButtonReleased(event.cbutton);
+
     }
 }
 
@@ -65,14 +102,20 @@ void SDLGame::RunFrame()
     this->Update(frameDelta);
     this->Render();
 
-    // TODO: Refactor time tracking to seconds, so we can actually use it in Gametick() sanely
-    if (!Focused)
-        std::this_thread::sleep_for(std::chrono::microseconds((62500 - 1000)));
+    if (!Focused && DropFPSOnFocusLost)
+        std::this_thread::sleep_for(std::chrono::microseconds(48000));
+    else
+        std::this_thread::sleep_for(std::chrono::microseconds(16000));
+
     auto stop = std::chrono::high_resolution_clock::now();
 
-    frameDelta = std::chrono::duration_cast<std::chrono::microseconds>(start-stop).count();
-    if (frameDelta < 1000 && Focused)
-        std::this_thread::sleep_for(std::chrono::microseconds(1000 - (int) frameDelta));
+    float frame_delta_microseconds = std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count();
+
+    frameDelta = frame_delta_microseconds / (1000 * 1000);
+    float frames_per_second = 1 / frameDelta;
+
+    std::cout << frames_per_second << std::endl;
+
     frameCount++;
 }
 
@@ -86,7 +129,6 @@ void SDLGame::Cleanup()  {
 void SDLGame::Initialize() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
-
 
     window = SDL_CreateWindow("Re: Backyard Monsters", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1152, 864, SDL_WINDOW_SHOWN);
     SDL_SetWindowResizable(window, SDL_TRUE);
@@ -104,3 +146,5 @@ void SDLGame::Initialize() {
     SDL_GL_SetSwapInterval(0);
     SDL_UpdateWindowSurface(window);
 }
+
+

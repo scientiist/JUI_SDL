@@ -34,9 +34,12 @@ void JUIDemoGame::Initialize() {
 void JUIDemoGame::Update(float delta) {
     SDLGame::Update(delta);
 
-    auto text = Gui->FindFirstChild("YA NOTHIN")->FindFirstChild("NO TALENT")->FindFirstChild("GO HOME AND PRACTICE");
+    Widget* thingy = Gui->FindFirstChild("YA NOTHIN")->FindFirstChild("NO TALENT")->FindFirstChild("GO HOME AND PRACTICE");
+    Text* text = dynamic_cast<Text*>(thingy);
+
 
     if (text != nullptr)
+        text->SetText(std::to_string(delta));
 
     Gui->Update(delta);
 }
