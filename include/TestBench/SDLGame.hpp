@@ -14,10 +14,12 @@ public:
     JUI::Event<float> RenderTick;
     JUI::Event<float> LogicTick;
 
-
-    JUI::Event< > FocusGained;
-    JUI::Event< > FocusLost;
-
+    Event<SDL_QuitEvent>             Quitting;
+    Event<SDL_WindowEvent>           WindowChanged;
+    Event<SDL_WindowEvent>           FocusGained;
+    Event<SDL_WindowEvent>           FocusLost;
+    Event<SDL_WindowEvent>           MouseEntered;
+    Event<SDL_WindowEvent>           MouseLeft;
     Event<SDL_KeyboardEvent>         KeyPressed;
     Event<SDL_KeyboardEvent>         KeyReleased;
     Event<SDL_MouseButtonEvent>      MousePressed;
@@ -27,6 +29,15 @@ public:
     Event<SDL_ControllerButtonEvent> ButtonPressed;
     Event<SDL_ControllerButtonEvent> ButtonReleased;
     Event<SDL_ControllerAxisEvent>   ThumbstickMoved;
+    Event<SDL_JoyButtonEvent>        JoyPressed;
+    Event<SDL_JoyButtonEvent>        JoyReleased;
+    Event<SDL_TouchFingerEvent>      TouchGesture;
+    Event<SDL_TouchFingerEvent>      TouchPressed;
+    Event<SDL_TouchFingerEvent>      TouchReleased;
+    Event<SDL_DisplayEvent>          DisplayChanged;
+    Event<SDL_DisplayEvent>          DisplayConnected;
+    Event<SDL_DisplayEvent>          DisplayDisconnected;
+    Event<SDL_DisplayEvent>          DisplayOrientationChanged;
 
 
 

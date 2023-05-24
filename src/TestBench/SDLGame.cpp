@@ -39,21 +39,40 @@ void SDLGame::Update(float delta) {
 
 void SDLGame::handleEvents() {
     while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT)
+        if (event.type == SDL_QUIT) {
             requestQuit = true;
+            Quitting(event.quit);
+        }
 
 
-
-        if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+        if (event.type == SDL_WINDOWEVENT)
         {
-            Focused = false;
-            FocusLost();
+            WindowChanged(event.window);
+            if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+            {
+                Focused = false;
+                FocusLost(event.window);
+            }
+
+            if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+                Focused = true;
+                FocusGained(event.window);
+            }
         }
 
-        if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-            Focused = true;
-            FocusGained();
+        if (event.type == SDL_DISPLAYEVENT)
+        {
+            DisplayChanged(event.display);
+            if (event.display.event == SDL_DISPLAYEVENT_CONNECTED)
+                DisplayConnected(event.display);
+
+            if (event.display.event == SDL_DISPLAYEVENT_DISCONNECTED)
+                DisplayDisconnected(event.display);
+
+            if (event.display.event == SDL_DISPLAYEVENT_ORIENTATION)
+                DisplayOrientationChanged(event.display);
         }
+
 
         if (event.type == SDL_KEYDOWN)
             KeyPressed(event.key);
@@ -78,6 +97,15 @@ void SDLGame::handleEvents() {
 
         if (event.type == SDL_CONTROLLERBUTTONUP)
             ButtonReleased(event.cbutton);
+
+        if (event.type == SDL_FINGERMOTION)
+            TouchGesture(event.tfinger);
+
+        if (event.type == SDL_FINGERDOWN)
+            TouchPressed(event.tfinger);
+
+        if (event.type == SDL_FINGERUP)
+            TouchPressed(event.tfinger);
 
     }
 }
@@ -114,7 +142,7 @@ void SDLGame::RunFrame()
     frameDelta = frame_delta_microseconds / (1000 * 1000);
     float frames_per_second = 1 / frameDelta;
 
-    std::cout << frames_per_second << std::endl;
+    //std::cout << frames_per_second << std::endl;
 
     frameCount++;
 }
