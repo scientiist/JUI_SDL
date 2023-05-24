@@ -12,7 +12,7 @@
 #include <SDL2/SDL_main.h>
 #include <SDL2/SDL_ttf.h>
 
-#include <SDL_FontCache/SDL_FontCache.h>
+#include "SDL_FontCache/SDL_FontCache.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -25,7 +25,7 @@ typedef enum
 	TextRenderBlended
 } TextRenderMethod;
 
-#include <JUI/jui.h>
+#include "JUI/jui.h"
 
 namespace JUI 
 {

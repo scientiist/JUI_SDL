@@ -1,7 +1,7 @@
 #pragma once
 
 #include "JUI/Types/Vector2.hpp"
-#include "JUI/Event.hpp"
+#include "JUI/Types/Event.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 

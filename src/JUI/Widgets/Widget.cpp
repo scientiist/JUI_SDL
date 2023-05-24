@@ -1,5 +1,5 @@
 
-#include <JUI/Widget.hpp>
+#include "JUI/Widgets/Widget.hpp"
 
 namespace JUI {
 
@@ -155,6 +155,28 @@ namespace JUI {
         Vector2 absolute_size = child_size_pixels + (parent_abs_size * child_size_scale);
         // TODO: Take into account constraints on the widget
         return absolute_size;
+    }
+
+    Widget* Widget::FindFirstChild(std::string search_name)
+    {
+        for (auto& child : children) {
+            if (child->GetName() == search_name) {
+                return child;
+            }
+        }
+        return nullptr;
+    }
+
+    template <typename T>
+    T* Widget::FindFirstChildOfType() const
+    {
+        for (auto& child : children) {
+            T* p = dynamic_cast<T>(child);
+
+            if (p != nullptr)
+                return p;
+        }
+        return nullptr;
     }
 
 }

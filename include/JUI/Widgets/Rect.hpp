@@ -1,6 +1,6 @@
 #pragma once
 
-#include <JUI/Widget.hpp>
+#include "Widget.hpp"
 #include <SDL2/SDL_pixels.h>
 #include "JUI/Types/UDim2.hpp"
 

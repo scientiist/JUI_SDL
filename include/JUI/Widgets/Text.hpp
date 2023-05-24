@@ -1,8 +1,8 @@
 #pragma once
 
-#include "JUI/Widget.hpp"
+#include "Widget.hpp"
 
-#include <JUI/Font.hpp>
+#include "JUI/Types/Font.hpp"
 
 namespace JUI {
     enum TextAlignmentEnum { // What's the difference between this and typedef enum?

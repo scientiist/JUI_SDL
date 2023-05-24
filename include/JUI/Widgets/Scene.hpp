@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <JUI/Widget.hpp>
+#include "Widget.hpp"
 
 namespace JUI {
     class Scene : public Widget {

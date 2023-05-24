@@ -4,7 +4,6 @@ void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
     Gui = new JUI::Scene(window, renderer);
 
-
     JUI::Rect *rect = new JUI::Rect();
     rect->SetParent(Gui);
     rect->SetName("YA NOTHIN");
@@ -25,7 +24,7 @@ void JUIDemoGame::Initialize() {
     Font bruh = Font(renderer, "fonts/FreeSans.ttf", 18);
 
     JUI::Text *text = new JUI::Text();
-    text->SetParent(rect);
+    text->SetParent(rect2);
     text->SetName("GO HOME AND PRACTICE");
     text->SetFont(bruh);
     text->SetTextColor({255, 255, 255, 255});
@@ -35,11 +34,11 @@ void JUIDemoGame::Initialize() {
 void JUIDemoGame::Update(float delta) {
     SDLGame::Update(delta);
 
-    for (auto& child : Gui->GetChildren())
-    {
-        //std::cout << child->GetName() << std::endl;
-    }
+    auto text = Gui->FindFirstChild("YA NOTHIN")->FindFirstChild("NO TALENT")->FindFirstChild("GO HOME AND PRACTICE");
 
+    if (text != nullptr)
+
+    Gui->Update(delta);
 }
 
 void JUIDemoGame::Draw() {
