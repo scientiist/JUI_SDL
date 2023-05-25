@@ -15,6 +15,7 @@ namespace JUI {
         Widget();
         virtual ~Widget();
 
+
         Event<Widget *> DescendantAdded;
         Event<Widget *> DescendantRemoved;
         Event<Widget *, Widget *> AncestryChanged;
@@ -60,6 +61,7 @@ namespace JUI {
         float rotation = 0;
         float absolute_rotation;
         std::string name;
+        bool override_child_widget_layout;
     private:
 
 
