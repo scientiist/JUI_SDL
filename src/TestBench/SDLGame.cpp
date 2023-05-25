@@ -142,8 +142,6 @@ void SDLGame::RunFrame()
     frameDelta = frame_delta_microseconds / (1000 * 1000);
     float frames_per_second = 1 / frameDelta;
 
-    //std::cout << frames_per_second << std::endl;
-
     frameCount++;
 }
 
