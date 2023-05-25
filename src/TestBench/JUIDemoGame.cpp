@@ -1,5 +1,7 @@
 #include "TestBench/JUIDemoGame.hpp"
 
+#include <SDL2/SDL_platform.h>
+
 void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
     Gui = new JUI::Scene(window, renderer);
@@ -15,7 +17,7 @@ void JUIDemoGame::Initialize() {
     JUI::Rect *rect2 = new JUI::Rect();
     rect2->SetParent(rect);
     rect2->SetName("NO TALENT");
-    rect2->SetBackgroundColor({0,0,255,0});
+    rect2->SetBackgroundColor({0, 0, 255, 0});
     rect2->SetSize({0, 0, 1.0f, 0.5f});
     rect2->SetPosition({10, 10, 0, 0});
 
@@ -25,6 +27,8 @@ void JUIDemoGame::Initialize() {
 
     JUI::Text *text = new JUI::Text();
     text->SetParent(rect2);
+    text->SetHorizontalTextAlignment(JUI::HTEXT_ALIGN_CENTER);
+    text->SetVerticalTextAlignment(JUI::VTEXT_ALIGN_CENTER);
     text->SetName("GO HOME AND PRACTICE");
     text->SetFont(bruh);
     text->SetTextColor({255, 255, 255, 255});
@@ -34,12 +38,16 @@ void JUIDemoGame::Initialize() {
 void JUIDemoGame::Update(float delta) {
     SDLGame::Update(delta);
 
-    Widget* thingy = Gui->FindFirstChild("YA NOTHIN")->FindFirstChild("NO TALENT")->FindFirstChild("GO HOME AND PRACTICE");
-    Text* text = dynamic_cast<Text*>(thingy);
+    Widget *thingy = Gui->FindFirstChild("YA NOTHIN")->FindFirstChild("NO TALENT")->FindFirstChild(
+            "GO HOME AND PRACTICE");
+    Text *text = dynamic_cast<Text *>(thingy);
 
 
-    if (text != nullptr)
-        text->SetText(std::to_string(delta));
+    if (text != nullptr) {
+        auto tekkxt = std::string(SDL_GetPlatform());
+        text->SetText(tekkxt);
+    }
+
 
     Gui->Update(delta);
 }

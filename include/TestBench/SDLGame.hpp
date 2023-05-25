@@ -8,7 +8,7 @@
 using namespace JUI;
 
 
-
+// Class Wrapper for SDL_Window and SDL_Renderer, plus core game state.
 class SDLGame {
 public:
     JUI::Event<float> RenderTick;

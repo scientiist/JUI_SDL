@@ -10,10 +10,9 @@
 
 
 #include <JUI/common.hpp>
-#include "JUI/Types/Event.hpp"
-//#include <JUI/Font.hpp>
+#include <JUI/Types/Event.hpp>
 #include <JUI/Types/Vector2.hpp>
-#include "JUI/Widgets/Widget.hpp"
+#include <JUI/Widgets/Widget.hpp>
 #include <JUI/Widgets/Rect.hpp>
 #include <JUI/Widgets/Text.hpp>
 #include <JUI/Widgets/Scene.hpp>
