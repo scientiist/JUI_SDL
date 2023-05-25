@@ -6,6 +6,33 @@
 #include <thread>
 #include <iostream>
 
+
+void SDLGame::Draw() {}
+void SDLGame::Update(float delta) {}
+
+void SDLGame::Initialize() {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+        std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
+
+    window = SDL_CreateWindow("Re: Backyard Monsters", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1152, 864, SDL_WINDOW_SHOWN);
+    SDL_SetWindowResizable(window, SDL_TRUE);
+    if (window == nullptr) {
+        std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
+    }
+    int imgFlags = IMG_INIT_PNG;
+    if (!(IMG_Init(imgFlags) & imgFlags))
+        std::cerr << "SDL_Error: " << "Couldn't init SDL_Image." << std::endl;
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer == nullptr) {
+        std::cerr << "SDL_Error: " << "Couldn't init SDL_Renderer." << std::endl;
+    }
+    SDL_RenderSetLogicalSize(renderer, 1152, 864);
+    SDL_GL_SetSwapInterval(0);
+    SDL_UpdateWindowSurface(window);
+}
+
+
+
 Vector2 SDLGame::GetWindowSize() {
     int* x;
     int* y;
@@ -19,9 +46,7 @@ void SDLGame::SetWindowSize(Vector2 const&v) {
     SDL_SetWindowSize(window, v.GetX(), v.GetY());
 }
 
-void SDLGame::Draw() {
 
-}
 
 void SDLGame::Render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -30,12 +55,7 @@ void SDLGame::Render() {
     Draw();
     SDL_RenderPresent(renderer);
 }
-void SDLGame::Update(float delta) {
-    if (Paused)
-        return;
 
-
-}
 
 void SDLGame::handleEvents() {
     while (SDL_PollEvent(&event)) {
@@ -150,27 +170,6 @@ void SDLGame::Cleanup()  {
     SDL_DestroyWindow(window);
     SDL_Quit();
     exit(1);
-}
-
-void SDLGame::Initialize() {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-        std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
-
-    window = SDL_CreateWindow("Re: Backyard Monsters", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1152, 864, SDL_WINDOW_SHOWN);
-    SDL_SetWindowResizable(window, SDL_TRUE);
-    if (window == nullptr) {
-        std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
-    }
-    int imgFlags = IMG_INIT_PNG;
-    if (!(IMG_Init(imgFlags) & imgFlags))
-        std::cerr << "SDL_Error: " << "Couldn't init SDL_Image." << std::endl;
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if(renderer == nullptr) {
-        std::cerr << "SDL_Error: " << "Couldn't init SDL_Renderer." << std::endl;
-    }
-    SDL_RenderSetLogicalSize(renderer, 1152, 864);
-    SDL_GL_SetSwapInterval(0);
-    SDL_UpdateWindowSurface(window);
 }
 
 
