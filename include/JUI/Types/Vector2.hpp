@@ -77,7 +77,7 @@ namespace JUI {
 #pragma region Member Methods
 
         bool Equals(const Vector2 &rhs, float marginOfError = 0.0001f) {
-
+            return std::abs(((*this) - rhs).Magnitude()) <= marginOfError;
         }
 
         float GetX() const { return this->X; }

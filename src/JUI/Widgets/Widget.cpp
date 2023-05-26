@@ -8,9 +8,7 @@ namespace JUI {
     }
     Widget::~Widget() {}
 
-    void Widget::Update(float delta) {
-
-    }
+    void Widget::Update(float) {}
 
     void Widget::DrawChildWidgets(SDL_Renderer* target) {
         for (auto child: children) {
@@ -40,7 +38,7 @@ namespace JUI {
             if (oldParent && !ancestor->IsAncestorOf(parent) && parent != ancestor) {
                 ancestor->DescendantRemoved(this);
                 for (Widget *descendant: this->GetDescendants()) {
-                    ancestor->DescendantRemoved(this);
+                    ancestor->DescendantRemoved(descendant);
                 }
             }
         }
@@ -63,15 +61,15 @@ namespace JUI {
         parent->children.emplace_back(this);
         //newParent->onChildAdded(this);
 
-        for (Widget *ancestor: this->GetAncestors()) {
-            if (!oldParent || !oldParent->IsDescendantOf(parent) && oldParent != ancestor) {
+        /*for (Widget *ancestor: this->GetAncestors()) {
+            if (!oldParent || (!oldParent->IsDescendantOf(parent) && oldParent != ancestor)) {
                 // Don't fire event unless an instance is actually a new descendant
                 //ancestor->OnDescendantAdded(this, oldParent, newParent);
-                for (Widget *descendant: this->GetDescendants()) {
+                for (Widget* _: this->GetDescendants()) {
                     //ancestor->OnDescendantAdded(descendant, oldParent, newParent);
                 }
             }
-        }
+        }*/
     }
 
     bool Widget::IsDescendantOf(Widget *ancestor) {
@@ -132,26 +130,24 @@ namespace JUI {
         size = s;
     }
 
-    Vector2 Widget::GetAbsolutePosition() const
-    {
-            Vector2 child_size_scale = this->GetSize().GetScale();
-            Vector2 child_size_pixels = this->GetSize().GetPixels();
-            Vector2 child_pos_scale = this->GetPosition().GetScale();
-            Vector2 child_pos_pixels = this->GetPosition().GetPixels();
-            Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
-            Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
-            Vector2 absolute_position = parent_abs_pos + child_pos_pixels + (parent_abs_size * child_pos_scale);
-            return absolute_position;
-    }
-
-    Vector2 Widget::GetAbsoluteSize() const
-    {
-        Vector2 child_size_scale = this->GetSize().GetScale();
-        Vector2 child_size_pixels = this->GetSize().GetPixels();
+    Vector2 Widget::GetAbsolutePosition() const {
+        //Vector2 child_size_scale = this->GetSize().GetScale();
+        //Vector2 child_size_pixels = this->GetSize().GetPixels();
         Vector2 child_pos_scale = this->GetPosition().GetScale();
         Vector2 child_pos_pixels = this->GetPosition().GetPixels();
         Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
         Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
+        Vector2 absolute_position = parent_abs_pos + child_pos_pixels + (parent_abs_size * child_pos_scale);
+        return absolute_position;
+    }
+
+    Vector2 Widget::GetAbsoluteSize() const {
+        Vector2 child_size_scale = this->GetSize().GetScale();
+        Vector2 child_size_pixels = this->GetSize().GetPixels();
+        //Vector2 child_pos_scale = this->GetPosition().GetScale();
+        //Vector2 child_pos_pixels = this->GetPosition().GetPixels();
+        Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
+        //Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
         Vector2 absolute_size = child_size_pixels + (parent_abs_size * child_size_scale);
         // TODO: Take into account constraints on the widget
         return absolute_size;

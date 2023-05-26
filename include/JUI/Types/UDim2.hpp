@@ -17,6 +17,7 @@ namespace JUI {
             scaleX = 0;
             scaleY = 0;
         }
+
         UDim2(int px, int py, float sx, float sy) :
                 pixelsX(px), pixelsY(py), scaleX(sx), scaleY(sy) {}
 
@@ -27,21 +28,15 @@ namespace JUI {
             scaleY = scale.Y;
         }
 
-        static UDim2 FromPixels(int x, int y) {
-            return {{x, y},
-                    {0, 0}};
-        }
+        static UDim2 FromPixels(int x, int y) { return {x, y, 0, 0}; }
 
-        static UDim2 FromScale(int x, int y) {
-            return {{0, 0},
-                    {x, y}};
-        }
+        static UDim2 FromScale(float x, float y) { return {0, 0, x, y}; }
 
-#pragma endregions
+#pragma endregion
 
         Vector2 GetScale() { return {scaleX, scaleY}; }
 
-        Vector2 GetPixels() { return {pixelsX, pixelsY}; }
+        Vector2 GetPixels() { return {(float) pixelsX, (float) pixelsY}; }
 
     protected:
     private:

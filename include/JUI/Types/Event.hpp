@@ -142,7 +142,7 @@ namespace JUI {
             auto handle = OnSomeSignal += [](int i) {
                 std::cout << "Event sent " << i << std::endl;
             };
-            auto handle2 = OnSomeSignal.Connect([](int i) {});
+            auto handle2 = OnSomeSignal.Connect([](int) {});
             int t;
             OnSomeSignal.Await(t);
         }

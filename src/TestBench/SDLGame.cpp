@@ -8,7 +8,8 @@
 
 
 void SDLGame::Draw() {}
-void SDLGame::Update(float delta) {}
+
+void SDLGame::Update(float) {}
 
 void SDLGame::Initialize() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -34,10 +35,10 @@ void SDLGame::Initialize() {
 
 
 Vector2 SDLGame::GetWindowSize() {
-    int* x;
-    int* y;
+    int *x = nullptr;
+    int *y = nullptr;
     SDL_GetWindowSize(window, x, y);
-    return {*x, *y};
+    return {(float) *x, (float) *y};
 }
 void SDLGame::SetWindowSize(int x, int y) {
     SDL_SetWindowSize(window, x, y);
@@ -160,7 +161,7 @@ void SDLGame::RunFrame()
     float frame_delta_microseconds = std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count();
 
     frameDelta = frame_delta_microseconds / (1000 * 1000);
-    float frames_per_second = 1 / frameDelta;
+    frames_per_second = 1 / frameDelta;
 
     frameCount++;
 }

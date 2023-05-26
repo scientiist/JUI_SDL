@@ -2,19 +2,20 @@
 
 #include <memory>
 #include <vector>
-#include "JUI/Types/Vector2.hpp"
-#include "JUI/Types/UDim2.hpp"
-#include "JUI/Types/Event.hpp"
+#include <JUI/Types/Vector2.hpp>
+#include <JUI/Types/UDim.hpp>
+#include <JUI/Types/UDim2.hpp>
+#include <JUI/Types/Event.hpp>
 #include <SDL2/SDL_render.h>
 
 namespace JUI {
 
-    class Widget  {
+    class Widget {
     public:
 
         Widget();
-        virtual ~Widget();
 
+        virtual ~Widget();
 
         Event<Widget *> DescendantAdded;
         Event<Widget *> DescendantRemoved;
@@ -24,7 +25,7 @@ namespace JUI {
         Event<Widget *> Destroying;
         Widget *NextSelection;
         Widget *PreviousSelection;
-        bool Selected;
+
         virtual void Draw(SDL_Renderer *target) { DrawChildWidgets(target); }
         virtual void Update(float delta) = 0;
         void DrawChildWidgets(SDL_Renderer* r);
@@ -34,8 +35,11 @@ namespace JUI {
         std::vector<Widget *> GetDescendants();
         std::vector<Widget *> GetAncestors();
         std::vector<Widget*> GetChildren();
+
         void SetParent(Widget *parent);
-        Widget *GetParent() const;
+
+        [[nodiscard]] Widget *GetParent() const;
+
         UDim2 GetPosition() const;
         void SetPosition(UDim2 const &);
         UDim2 GetSize() const;
@@ -54,14 +58,23 @@ namespace JUI {
     protected:
         UDim2 position = {0, 0, 0.0f, 0.0f};
         UDim2 size = {200, 50, 0.0f, 0.0f};
-        Vector2 absolutePosition = {0,0};
-        Vector2 absoluteSize = {0,0};
+        Vector2 absolutePosition = {0, 0};
+        Vector2 absoluteSize = {0, 0};
         Widget *parent = nullptr;
-        std::vector<Widget*> children;
+        std::vector<Widget *> children;
         float rotation = 0;
         float absolute_rotation;
         std::string name;
         bool override_child_widget_layout;
+        bool selected;
+        UDim padding_left;
+        UDim padding_right;
+        UDim padding_top;
+        UDim padding_bottom;
+        UDim margin_left;
+        UDim margin_right;
+        UDim margin_top;
+        UDim margin_bottom;
     private:
 
 

@@ -11,15 +11,19 @@ using namespace JUI;
 // Class Wrapper for SDL_Window and SDL_Renderer, plus core game state.
 class SDLGame {
 public:
+    SDLGame() {}
+
+    virtual ~SDLGame() {}
+
     JUI::Event<float> RenderTick;
     JUI::Event<float> LogicTick;
 
-    Event<SDL_QuitEvent>             Quitting;
-    Event<SDL_WindowEvent>           WindowChanged;
-    Event<SDL_WindowEvent>           FocusGained;
-    Event<SDL_WindowEvent>           FocusLost;
-    Event<SDL_WindowEvent>           MouseEntered;
-    Event<SDL_WindowEvent>           MouseLeft;
+    Event<SDL_QuitEvent> Quitting;
+    Event<SDL_WindowEvent> WindowChanged;
+    Event<SDL_WindowEvent> FocusGained;
+    Event<SDL_WindowEvent> FocusLost;
+    Event<SDL_WindowEvent> MouseEntered;
+    Event<SDL_WindowEvent> MouseLeft;
     Event<SDL_KeyboardEvent>         KeyPressed;
     Event<SDL_KeyboardEvent>         KeyReleased;
     Event<SDL_MouseButtonEvent>      MousePressed;
@@ -57,10 +61,14 @@ public:
     bool Paused;
 
     Vector2 GetWindowSize();
+
     void SetWindowSize(int x, int y);
-    void SetWindowSize(Vector2 const&v);
+
+    void SetWindowSize(Vector2 const &v);
 
 protected:
+    float frames_per_second; // FPS measurement as-of last frame
+    // TODO: Need to average several measurements later
     bool requestQuit;
     float frameDelta;
     float tickDelta;

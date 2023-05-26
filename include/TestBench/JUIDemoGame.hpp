@@ -6,6 +6,10 @@
 
 class JUIDemoGame : public SDLGame {
 public:
+    JUIDemoGame() : SDLGame() {}
+
+    ~JUIDemoGame() override {}
+
     JUI::Widget *Gui;
 
     void Initialize() override;

@@ -4,6 +4,8 @@
 
 namespace JUI {
     class Checkbox : public Widget {
-
+    public:
+    protected:
+    private:
     };
 }
