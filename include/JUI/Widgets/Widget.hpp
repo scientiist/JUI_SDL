@@ -65,7 +65,8 @@ namespace JUI {
         float rotation = 0;
         float absolute_rotation;
         std::string name;
-        bool override_child_widget_layout;
+        bool override_child_widget_size;
+        bool override_child_widget_position;
         bool selected;
         UDim padding_left;
         UDim padding_right;

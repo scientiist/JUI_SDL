@@ -4,13 +4,16 @@
 namespace JUI {
 
     Widget::Widget() {
-        children = std::vector<Widget*>();
+        children = std::vector<Widget *>();
     }
+
     Widget::~Widget() {}
 
-    void Widget::Update(float) {}
+    void Widget::Update(float delta) {
+        this->UpdateChildWidgets(delta);
+    }
 
-    void Widget::DrawChildWidgets(SDL_Renderer* target) {
+    void Widget::DrawChildWidgets(SDL_Renderer *target) {
         for (auto child: children) {
             child->Draw(target);
         }
