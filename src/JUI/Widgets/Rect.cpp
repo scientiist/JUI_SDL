@@ -28,7 +28,6 @@ namespace JUI {
     }
 
     void Rect::Update(float delta) {
-
+        Widget::Update(delta);
     }
 }
-

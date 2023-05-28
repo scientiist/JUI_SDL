@@ -15,7 +15,6 @@ namespace JUI {
 
         void Update(float delta) override;
 
-
         UDim2 GetSize() { return size; }
 
         void SetSize(UDim2 s) { size = s; }
