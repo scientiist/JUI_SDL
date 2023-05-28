@@ -1,6 +1,7 @@
 #pragma once
 
-#include <JUI/jui.h>
+//#include <JUI/jui.h>
+#include <JUI/Widgets/Widget.hpp>
 
 #include "SDLGame.hpp"
 
