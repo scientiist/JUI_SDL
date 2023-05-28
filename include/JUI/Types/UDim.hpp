@@ -4,8 +4,8 @@
 namespace JUI {
     class UDim {
     public:
-        float Scale;
         int Pixels;
+        float Scale;
     private:
     };
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <JUI/Types/Vector2.hpp>
+#include <JUI/Types/UDim.hpp>
+
 // Universal Dimensions 2D - Immuatable Data Type
 // Contains a scale vector, and a pixel offsets vector
 // TODO: Think of a better name than UDim2
@@ -8,24 +10,23 @@ namespace JUI {
 
     class UDim2 {
     public:
+        UDim X;
+        UDim Y;
 #pragma region Constructors
 
-        UDim2()
-        {
-            pixelsX = 0;
-            pixelsY = 0;
-            scaleX = 0;
-            scaleY = 0;
+        UDim2() {
+            X = {0, 0.0f};
+            Y = {0, 0.0f};
         }
 
-        UDim2(int px, int py, float sx, float sy) :
-                pixelsX(px), pixelsY(py), scaleX(sx), scaleY(sy) {}
+        UDim2(int px, int py, float sx, float sy) {
+            X = {px, sx};
+            Y = {py, sy};
+        }
 
         UDim2(Vector2 pixels, Vector2 scale) {
-            pixelsX = pixels.X;
-            pixelsY = pixels.Y;
-            scaleX = scale.X;
-            scaleY = scale.Y;
+            X = {static_cast<int>(pixels.X), scale.X};
+            Y = {static_cast<int>(pixels.Y), scale.Y};
         }
 
         static UDim2 FromPixels(int x, int y) { return {x, y, 0, 0}; }
@@ -34,15 +35,11 @@ namespace JUI {
 
 #pragma endregion
 
-        Vector2 GetScale() { return {scaleX, scaleY}; }
+        Vector2 GetScale() { return {X.Scale, Y.Scale}; }
 
-        Vector2 GetPixels() { return {(float) pixelsX, (float) pixelsY}; }
+        Vector2 GetPixels() { return {(float) X.Pixels, (float) Y.Pixels}; }
 
     protected:
     private:
-        int pixelsX;
-        int pixelsY;
-        float scaleX;
-        float scaleY;
     };
 }
