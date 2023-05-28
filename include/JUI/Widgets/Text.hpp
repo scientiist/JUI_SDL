@@ -66,7 +66,7 @@ namespace JUI {
         bool rich_text_enabled;
         SDL_Color text_color;
         SDL_Color outline_color;
-        std::string text;
+        std::string text = "Sample Text";
         JUI::Font font;
     };
 }
