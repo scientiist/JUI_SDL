@@ -5,6 +5,8 @@
 
 #include "SDLGame.hpp"
 
+// TODO: Rename JUIDemoGame to Sandbox
+
 class JUIDemoGame : public SDLGame {
 public:
     JUIDemoGame() : SDLGame() {}

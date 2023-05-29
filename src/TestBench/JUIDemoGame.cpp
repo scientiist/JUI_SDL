@@ -8,13 +8,7 @@
 
 //#include <JUI/jui.h>
 
-UDim operator "" _scale(long double);
 
-UDim operator "" _percent(long double);
-
-UDim operator "" _pixels(unsigned long long);
-
-UDim operator "" _px(unsigned long long);
 
 void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
@@ -25,9 +19,10 @@ void JUIDemoGame::Initialize() {
     rect->SetName("YA NOTHIN");
     rect->SetBackgroundColor({64, 64, 64, 0});
     rect->SetBorderColor({255, 255, 255, 0});
-    rect->SetSize({0, 0, 0.25f, 1.0f});
-    rect->SetPosition({0, 0, 0.1, 0.3});
+    rect->SetSize({25_percent, 100_percent});
+    rect->SetPosition({10_percent, 30_percent});
     rect->SetPaddingLeft(12_px);
+
 
     JUI::Rect *rect2 = new JUI::Rect();
     rect2->SetParent(rect);
@@ -36,7 +31,7 @@ void JUIDemoGame::Initialize() {
     rect2->SetSize({0, 0, 1.0f, 0.5f});
     rect2->SetPosition({0, 0, 0, 0});
 
-    // TODO: Implement Default Font
+    // TODO: Should we Implement Default Font?
 
     JUI::VerticalListLayout *layout = new JUI::VerticalListLayout();
     layout->SetParent(rect2);
