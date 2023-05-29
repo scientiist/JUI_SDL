@@ -12,9 +12,7 @@ namespace JUI {
 
     class Widget {
     public:
-
         Widget();
-
         virtual ~Widget();
 
         Event<Widget *> DescendantAdded;
@@ -42,20 +40,43 @@ namespace JUI {
 
         UDim2 GetPosition() const;
         void SetPosition(UDim2 const &);
+
         UDim2 GetSize() const;
         void SetSize(UDim2 const &);
+
         virtual Vector2 GetAbsoluteSize() const;
         virtual Vector2 GetAbsolutePosition() const;
-        float GetRotation() { return rotation; }
+
+        float GetRotation() const { return rotation; }
         void SetRotation(float rot) { rotation = rot; }
-        float GetAbsoluteRotation() { return absolute_rotation; }
+        float GetAbsoluteRotation() const { return absolute_rotation; }
+
+
         void SetName(std::string n) { name = n;    }
         std::string GetName() const { return name; }
+
         Widget* FindFirstChild(std::string name);
+
         template<typename T>
         T *FindFirstChildOfType() const;
 
+        UDim GetPaddingLeft() const;
         void SetPaddingLeft(UDim pl);
+        UDim GetPaddingRight() const;
+        void SetPaddingRight(UDim pr);
+        UDim GetPaddingTop() const;
+        void SetPaddingTop(UDim pt);
+        UDim GetPaddingBottom() const;
+        void SetPaddingBottom(UDim pb);
+
+        UDim GetMarginLeft() const;
+        void SetMarginLeft(UDim ml);
+        UDim GetMarginRight() const;
+        void SetMarginRight(UDim mr);
+        UDim GetMarginTop() const;
+        void SetMarginTop(UDim mt);
+        UDim GetMarginBottom() const;
+        void SetMarginBottom(UDim mb);
     protected:
         UDim2 position = {0, 0, 0.0f, 0.0f};
         UDim2 size = {200, 50, 0.0f, 0.0f};

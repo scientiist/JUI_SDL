@@ -148,11 +148,18 @@ namespace JUI {
     Vector2 Widget::GetAbsoluteSize() const {
         Vector2 child_size_scale = this->GetSize().GetScale();
         Vector2 child_size_pixels = this->GetSize().GetPixels();
-        //Vector2 child_pos_scale = this->GetPosition().GetScale();
-        //Vector2 child_pos_pixels = this->GetPosition().GetPixels();
         Vector2 parent_abs_size = this->GetParent()->GetAbsoluteSize();
-        //Vector2 parent_abs_pos = this->GetParent()->GetAbsolutePosition();
-        Vector2 absolute_size = child_size_pixels + (parent_abs_size * child_size_scale);
+
+        UDim padding_h = parent->GetPaddingLeft() + parent->GetPaddingRight();
+        float calculated_padding_x = padding_h.Pixels + (padding_h.Scale * parent->GetAbsoluteSize().X );
+
+        UDim padding_v = parent->GetPaddingTop() + parent->GetPaddingBottom();
+        float calculated_padding_y = padding_v.Pixels + (padding_v.Scale * parent->GetAbsoluteSize().Y);
+
+        Vector2 padding_size_reduction = {calculated_padding_x, calculated_padding_y};
+
+
+        Vector2 absolute_size = child_size_pixels + (parent_abs_size * child_size_scale) + padding_size_reduction;
         // TODO: Take into account constraints on the widget
         return absolute_size;
     }
@@ -178,5 +185,26 @@ namespace JUI {
         }
         return nullptr;
     }
+
+    UDim Widget::GetPaddingLeft()   const { return padding_left; }
+    UDim Widget::GetPaddingRight()  const { return padding_right;}
+    UDim Widget::GetPaddingTop()    const { return padding_top;  }
+    UDim Widget::GetPaddingBottom() const { return padding_bottom;}
+
+    void Widget::SetPaddingLeft(UDim pl)  { padding_left = pl;}
+    void Widget::SetPaddingRight(UDim pr) { padding_right = pr;}
+    void Widget::SetPaddingTop(UDim pt)   { padding_top = pt;}
+    void Widget::SetPaddingBottom(UDim pb){ padding_bottom = pb;}
+
+    UDim Widget::GetMarginLeft()   const { return margin_left;}
+    UDim Widget::GetMarginRight()  const { return margin_right; }
+    UDim Widget::GetMarginTop()    const { return margin_top;}
+    UDim Widget::GetMarginBottom() const { return margin_bottom;}
+
+    void Widget::SetMarginLeft(UDim ml)   { margin_left = ml;}
+    void Widget::SetMarginRight(UDim mr)  { margin_right = mr;}
+    void Widget::SetMarginTop(UDim mt)    { margin_top = mt;}
+    void Widget::SetMarginBottom(UDim mb) { margin_bottom = mb;}
+
 
 }
