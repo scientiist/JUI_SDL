@@ -12,8 +12,11 @@ namespace JUI {
     public:
         UDim X;
         UDim Y;
-#pragma region Constructors
 
+        UDim2 operator+(const UDim2& rhs) const { return {}}
+
+#pragma region Constructors
+        // TODO: Implement Math Operators
         UDim2() {
             X = {0, 0.0f};
             Y = {0, 0.0f};
@@ -27,6 +30,12 @@ namespace JUI {
         UDim2(Vector2 pixels, Vector2 scale) {
             X = {static_cast<int>(pixels.X), scale.X};
             Y = {static_cast<int>(pixels.Y), scale.Y};
+        }
+
+        UDim2(UDim x, UDim y)
+        {
+            X = x;
+            Y = y;
         }
 
         static UDim2 FromPixels(int x, int y) { return {x, y, 0, 0}; }
