@@ -8,6 +8,14 @@
 
 //#include <JUI/jui.h>
 
+UDim operator "" _scale(long double);
+
+UDim operator "" _percent(long double);
+
+UDim operator "" _pixels(unsigned long long);
+
+UDim operator "" _px(unsigned long long);
+
 void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
     Gui = new JUI::Scene(window, renderer);
@@ -15,17 +23,18 @@ void JUIDemoGame::Initialize() {
     JUI::Rect *rect = new JUI::Rect();
     rect->SetParent(Gui);
     rect->SetName("YA NOTHIN");
-    rect->SetBackgroundColor({255, 0, 0, 0});
+    rect->SetBackgroundColor({64, 64, 64, 0});
     rect->SetBorderColor({255, 255, 255, 0});
-    rect->SetSize({0,0, 1, 1});
+    rect->SetSize({0, 0, 0.25f, 1.0f});
     rect->SetPosition({0, 0, 0.1, 0.3});
+    rect->SetPaddingLeft(12_px);
 
     JUI::Rect *rect2 = new JUI::Rect();
     rect2->SetParent(rect);
     rect2->SetName("NO TALENT");
     rect2->SetBackgroundColor({0, 0, 255, 0});
     rect2->SetSize({0, 0, 1.0f, 0.5f});
-    rect2->SetPosition({10, 10, 0, 0});
+    rect2->SetPosition({0, 0, 0, 0});
 
     // TODO: Implement Default Font
 
@@ -37,7 +46,7 @@ void JUIDemoGame::Initialize() {
     // Textbox 1
     JUI::Rect *tb1 = new JUI::Rect();
     tb1->SetParent(layout);
-    tb1->SetSize({0, 50, 1.0f, 0.0f});
+    tb1->SetSize({0, 30, 1.0f, 0.0f});
     tb1->SetBackgroundColor({0, 255, 0, 0});
 
     JUI::Text *lb1 = new JUI::Text();

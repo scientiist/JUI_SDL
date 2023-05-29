@@ -52,9 +52,10 @@ namespace JUI {
         void SetName(std::string n) { name = n;    }
         std::string GetName() const { return name; }
         Widget* FindFirstChild(std::string name);
-        template <typename T>
-        T* FindFirstChildOfType() const;
+        template<typename T>
+        T *FindFirstChildOfType() const;
 
+        void SetPaddingLeft(UDim pl);
     protected:
         UDim2 position = {0, 0, 0.0f, 0.0f};
         UDim2 size = {200, 50, 0.0f, 0.0f};

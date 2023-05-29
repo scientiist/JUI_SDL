@@ -144,6 +144,7 @@ namespace JUI {
         return absolute_position;
     }
 
+    // TODO: implement padding shrinking abs_size;
     Vector2 Widget::GetAbsoluteSize() const {
         Vector2 child_size_scale = this->GetSize().GetScale();
         Vector2 child_size_pixels = this->GetSize().GetPixels();

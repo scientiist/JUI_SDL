@@ -31,29 +31,45 @@ namespace JUI {
 
         ~VerticalListLayout() override {}
 
-        void Update(float delta) override {
-            ApplyLayout();
-            LayoutContainerWidget::Update(delta);
-        }
+        void Update(float delta) override;
 
-        void Draw(SDL_Renderer *target) override {
-            LayoutContainerWidget::Draw(target);
-        }
+        void Draw(SDL_Renderer *target) override;
 
-        void ApplyLayout() override {
-            int consumed_height = 0;
-            for (auto &child_widget: children) {
-                // TODO: Implement widget.LayoutOrder property
-                // TODO: Sort children by LayoutOrder
-                child_widget->SetPosition({0, consumed_height, 0, 0});
-                consumed_height += child_widget->GetAbsoluteSize().Y;
+        void SetPadding(UDim padding);
 
-            }
-        }
+        UDim GetPadding();
+
+        Vector2 GetAbsoluteSize() const override { return parent->GetAbsoluteSize(); }
+
+        Vector2 GetAbsolutePosition() const override { return parent->GetAbsolutePosition(); }
+
+        void ApplyLayout() override;
 
     private:
-        UDim padding;
+        UDim padding = {5, 0.0f};
     };
+
+    void VerticalListLayout::Update(float delta) {
+        ApplyLayout();
+        LayoutContainerWidget::Update(delta);
+    }
+
+    void VerticalListLayout::Draw(SDL_Renderer *target) {
+        LayoutContainerWidget::Draw(target);
+    }
+
+    void VerticalListLayout::ApplyLayout() {
+        int consumed_height = 0;
+        for (auto &child_widget: children) {
+            // TODO: Implement widget.LayoutOrder property
+            // TODO: Sort children by LayoutOrder
+            consumed_height += padding.Pixels;
+            child_widget->SetPosition({0, consumed_height, 0, 0});
+            consumed_height += child_widget->GetAbsoluteSize().Y;
+
+
+        }
+    }
 
     class HorizontalListLayout : public LayoutContainerWidget {
     public:
