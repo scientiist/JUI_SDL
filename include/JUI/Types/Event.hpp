@@ -96,33 +96,6 @@ namespace JUI {
                 listeners.begin(), listeners.end(), 99), listeners.end());
     }
 
-    class Nigger {
-    public:
-        Event<time_t> Jailed;
-
-        void SendToJail() {
-#if SUPERMAX
-
-#else
-
-#endif
-#define NIGGER_NUMBERS 42069
-            Jailed.Invoke(NIGGER_NUMBERS); // IM GONNA BOMB A FEDERAL BUILDING REEEEEEEEEEEEEEEEEEEEEEEEE
-        }
-    };
-
-
-    class Cop {
-    public:
-        void Arrest(Nigger &ninini) {
-            ninini.SendToJail();
-        }
-    };
-
-    template<typename T>
-    class NiggerTemplateExamples {
-
-    };
 
     // The purpose of events is to convey changes in "Class-State"
     // That outside users may be interested in.
