@@ -16,6 +16,8 @@ namespace JUI {
 #pragma region Operators
         UDim2 operator+(const UDim2& rhs) const;
         UDim2 operator-(const UDim2& rhs) const;
+        UDim2 operator*(float rhs) const;
+        UDim2 operator/(float rhs) const;
 #pragma endregion
 
 #pragma region Constructors

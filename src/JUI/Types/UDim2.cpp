@@ -7,6 +7,15 @@ namespace JUI {
     UDim2 UDim2::operator-(const UDim2& rhs) const
     { return {X-rhs.X, Y-rhs.X};}
 
+    UDim2 UDim2::operator*(float rhs) const
+    {
+        return {X*rhs, Y*rhs};
+    }
+
+    UDim2 UDim2::operator/(float rhs) const
+    {
+        return {X/rhs, Y/rhs};
+    }
 
     UDim2::UDim2()
     {
@@ -40,4 +49,7 @@ namespace JUI {
 
     Vector2 UDim2::GetPixels() const
     { return {(float) X.Pixels, (float) Y.Pixels}; }
+
+
+
 }
