@@ -8,14 +8,10 @@ namespace JUI {
     { return {X-rhs.X, Y-rhs.X};}
 
     UDim2 UDim2::operator*(float rhs) const
-    {
-        return {X*rhs, Y*rhs};
-    }
+    { return {X*rhs, Y*rhs}; }
 
     UDim2 UDim2::operator/(float rhs) const
-    {
-        return {X/rhs, Y/rhs};
-    }
+    { return {X/rhs, Y/rhs}; }
 
     UDim2::UDim2()
     {
