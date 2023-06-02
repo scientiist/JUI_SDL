@@ -47,8 +47,8 @@ namespace JUI {
         virtual Vector2 GetAbsoluteSize() const;
         virtual Vector2 GetAbsolutePosition() const;
 
-        float GetRotation() const { return rotation; }
-        void SetRotation(float rot) { rotation = rot; }
+        float GetRotation() const;
+        void SetRotation(float rot);
         float GetAbsoluteRotation() const { return absolute_rotation; }
 
 

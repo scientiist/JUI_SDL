@@ -186,6 +186,12 @@ namespace JUI {
         return nullptr;
     }
 
+    float Widget::GetRotation() const
+    { return rotation; }
+
+    void Widget::SetRotation(float rot)
+    {rotation = rot;}
+
     UDim Widget::GetPaddingLeft()   const { return padding_left; }
     UDim Widget::GetPaddingRight()  const { return padding_right;}
     UDim Widget::GetPaddingTop()    const { return padding_top;  }
