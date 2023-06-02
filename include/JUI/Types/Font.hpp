@@ -25,7 +25,6 @@ typedef enum
 	TextRenderBlended
 } TextRenderMethod;
 
-#include "JUI/jui.h"
 
 namespace JUI 
 {
