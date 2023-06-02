@@ -76,6 +76,11 @@ namespace JUI {
 
 #pragma region Member Methods
 
+        std::string ToString() const
+        {
+            return std::string("{") + std::to_string(X) + "," + std::to_string(Y) + "}";
+        }
+
         bool Equals(const Vector2 &rhs, float marginOfError = 0.0001f) {
             return std::abs(((*this) - rhs).Magnitude()) <= marginOfError;
         }
