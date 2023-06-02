@@ -6,23 +6,25 @@
 #include <JUI/Widgets/Text.hpp>
 #include <SDL2/SDL_platform.h>
 
-//#include <JUI/jui.h>
-
+#include <JUI/jui.h>
 
 
 void JUIDemoGame::Initialize() {
     SDLGame::Initialize();
+
+    JUI::Init(renderer);
+
     Gui = new JUI::Scene(window, renderer);
 
     JUI::Rect *rect = new JUI::Rect();
     rect->SetParent(Gui);
     rect->SetName("YA NOTHIN");
     rect->SetBackgroundColor({64, 64, 64, 0});
+    rect->SetBorderWidth(3);
     rect->SetBorderColor({255, 255, 255, 0});
     rect->SetSize({25_percent, 100_percent});
     rect->SetPosition({10_percent, 30_percent});
     rect->SetPaddingLeft(12_px);
-
 
     JUI::Rect *rect2 = new JUI::Rect();
     rect2->SetParent(rect);
