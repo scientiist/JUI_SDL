@@ -10,43 +10,24 @@ namespace JUI {
 
         Rect();
         ~Rect() override;
-
         void Draw(SDL_Renderer* target) override;
-
         void Update(float delta) override;
 
-        UDim2 GetSize() { return size; }
+        SDL_Color GetBackgroundColor() const;
+        void SetBackgroundColor(SDL_Color c);
 
-        void SetSize(UDim2 s) { size = s; }
+        SDL_Color GetBorderColor() const;
+        void SetBorderColor(SDL_Color c);
 
-        UDim2 GetPosition() { return position; }
+        float GetBorderWidth() const;
+        void SetBorderWidth(float pixels);
 
-        void SetPosition(UDim2 pos) { position = pos; }
-
-        SDL_Color GetBackgroundColor() { return bg_color; }
-
-        void SetBackgroundColor(SDL_Color c) { bg_color = c; }
-
-        SDL_Color GetBorderColor() { return border_color; }
-
-        void SetBorderColor(SDL_Color c) { border_color = c; }
-
-        float GetBorderWidth() const { return border_width; }
-
-        void SetBorderWidth(float pixels) { border_width = pixels; }
-
-        bool GetClipsDescendants() const { return clips_descendants; }
-
-        void SetClipsDescendants(bool ye) { clips_descendants = ye; }
+        bool GetClipsDescendants() const;
+        void SetClipsDescendants(bool ye);
 
         // Are these necessary? SDL_Color contains an alpha channel
         float GetTransparency() const { return this->transparency; }
-
         void SetTransparency(float alpha) { transparency = alpha; }
-
-        float GetRotation() const { return rotation; }
-
-        void SetRotation(float rot) { rotation = rot; }
 
         bool IsVisible() const;
 
