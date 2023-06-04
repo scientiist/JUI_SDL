@@ -18,6 +18,7 @@ namespace JUI {
         UDim2 operator-(const UDim2& rhs) const;
         UDim2 operator*(float rhs) const;
         UDim2 operator/(float rhs) const;
+        UDim2 &operator=(const UDim2 &) = default;
 #pragma endregion
 
 #pragma region Constructors
@@ -25,6 +26,7 @@ namespace JUI {
         UDim2(int px, int py, float sx, float sy);
         UDim2(Vector2 pixels, Vector2 scale);
         UDim2(UDim x, UDim y);
+        UDim2(const UDim2 &u) : X(u.X), Y(u.Y) {}
         static UDim2 FromPixels(int x, int y);
         static UDim2 FromScale(float x, float y);
 

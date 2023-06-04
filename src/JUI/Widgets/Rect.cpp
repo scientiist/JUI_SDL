@@ -71,10 +71,10 @@ namespace JUI {
 
         // Debug Draw
 
-        std::string data = abs_pos;
-        FC_DrawAlign(JUI::debug_font.fc_font, target, abs_pos.X, abs_pos.Y, FC_ALIGN_LEFT, data.c_str());
+        std::string data = abs_pos.ToString();
+        //FC_DrawAlign(JUI::debug_font.fc_font, target, abs_pos.X, abs_pos.Y, FC_ALIGN_LEFT, data.c_str());
         data = "";
-        FC_DrawAlign(JUI::debug_font.fc_font, target, abs_pos.X, abs_pos.Y, FC_ALIGN_LEFT, data.c_str());
+        //FC_DrawAlign(JUI::debug_font.fc_font, target, abs_pos.X, abs_pos.Y, FC_ALIGN_LEFT, data.c_str());
 
 
 

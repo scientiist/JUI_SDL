@@ -31,47 +31,28 @@ namespace JUI {
 #pragma region Static Methods
 
         static Vector2 Max(Vector2 const &input, Vector2 const &max);
-
         static Vector2 Min(Vector2 const &input, Vector2 const &min);
-
         static Vector2 Perp(Vector2 const &rhs);
-
         static Vector2 Clamp(const Vector2 &input, Vector2 const &min, Vector2 const &max);
-
         static Vector2 Lerp(Vector2 const &start, Vector2 const &goal, float alpha);
-
         static float Dot(Vector2 const &rhs, Vector2 const &lhs);
-
         static float Magnitude(Vector2 const &vec);
-
         static float Distance(Vector2 const &, Vector2 const &);
 
 #pragma endregion
 
 #pragma region Operators
-
-        friend Vector2 operator*(float t, Vector2 const &rhs);
-
-        friend std::ostream &operator<<(std::ostream &os, const Vector2 &vector);
-
-        bool operator==(const Vector2 &rhs) const;
-
-        bool operator!=(const Vector2 &rhs) const;
-
         Vector2 &operator=(const Vector2 &) = default;
-
+        friend Vector2 operator*(float t, Vector2 const &rhs);
+        friend std::ostream &operator<<(std::ostream &os, const Vector2 &vector);
+        bool operator==(const Vector2 &rhs) const;
+        bool operator!=(const Vector2 &rhs) const;
         Vector2 operator+(const Vector2 &rhs) const;
-
         Vector2 operator-(const Vector2 &rhs) const;
-
         Vector2 operator*(const Vector2 &rhs) const;
-
         Vector2 operator/(const Vector2 &rhs) const;
-
         Vector2 operator*(float rhs) const;
-
         Vector2 operator/(float rhs) const;
-
 #pragma endregion
 
 #pragma region Member Methods

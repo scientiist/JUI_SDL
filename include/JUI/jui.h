@@ -18,10 +18,10 @@
 
 namespace JUI {
 
-    static JUI::Font debug_font;
+    //static JUI::Font debug_font;
     static void Init(SDL_Renderer* renderer)
     {
-        debug_font = Font(renderer, "fonts/FreeSans.ttf", 11);
+        //debug_font = Font(renderer, "fonts/FreeSans.ttf", 10);
     }
 
 
