@@ -23,15 +23,33 @@ namespace JUI {
         void SetBorderWidth(float pixels);
 
         bool GetClipsDescendants() const;
+
         void SetClipsDescendants(bool ye);
 
         // Are these necessary? SDL_Color contains an alpha channel
         float GetTransparency() const { return this->transparency; }
+
         void SetTransparency(float alpha) { transparency = alpha; }
 
         bool IsVisible() const;
 
         void SetVisible(bool);
+
+        bool IsMouseInside() const {
+            int *x, *y;
+            SDL_GetMouseState(x, y);
+
+            auto pos = GetAbsolutePosition();
+            auto size = GetAbsoluteSize();
+
+
+            if (*x > pos.X && *y > pos.Y && *x < pos.X + size.X && *y < pos.Y + size.Y) {
+                return true;
+            }
+            return false;
+
+            //return mouse_inside;
+        }
 
     protected:
         float border_width = 1.0f;
@@ -39,6 +57,7 @@ namespace JUI {
         SDL_Color border_color;
         float transparency;
         bool clips_descendants;
+        //bool mouse_inside;
     private:
     };
 
